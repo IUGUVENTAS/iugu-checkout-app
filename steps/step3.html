@@ -1,50 +1,60 @@
 <div class="checkout-step" id="step3-content">
-  <div class="checkout-card">
+  <div class="checkout-card payment-step">
+
     <!-- Cabeçalho -->
-    <div class="card-header mb-4">
-      <h2 class="card-title" style="font-size: 1.25rem; font-weight: 600;">3. Pago</h2>
-      <p class="card-description" style="color: var(--text-light); font-size: 0.95rem;">Todas las transacciones son seguras y están encriptadas.</p>
-    </div>
-
-    <!-- Métodos de pagamento -->
-    <div class="payment-methods-container" style="display: flex; flex-direction: column; gap: 1rem;">
-      <!-- Cartão -->
-      <label class="payment-method-card active" data-method="tarjeta" style="border: 1.5px solid var(--primary); border-radius: 12px; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <span class="card-title-payment" style="font-weight: 600;">Tarjeta de Crédito/Débito</span>
-          <div class="method-icons" style="margin-top: 0.5rem;">
-            <img src="assets/img/Visa.svg" alt="Visa" />
-            <img src="assets/img/Mastercard.svg" alt="Mastercard" />
-            <img src="assets/img/American Express.svg" alt="Amex" />
-          </div>
-        </div>
-        <input type="radio" name="pago" value="tarjeta" checked style="transform: scale(1.4);">
-      </label>
-
-      <!-- Transferência -->
-      <label class="payment-method-card" data-method="transferencia" style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <span class="card-title-payment" style="font-weight: 600;">Transferencia Bancaria</span>
-          <div class="method-icons" style="margin-top: 0.5rem;">
-            <img src="assets/img/Khipu.svg" alt="Khipu" />
-            <img src="assets/img/Fintoc.svg" alt="Fintoc" />
-          </div>
-        </div>
-        <input type="radio" name="pago" value="transferencia" style="transform: scale(1.4);">
-      </label>
-    </div>
-
-    <!-- Widget SumUp -->
-    <div id="sumup-wrapper" style="margin-top: 2rem;">
-      <div id="sumup-card" style="min-height: 320px;"></div>
-      <!-- REMOVIDO: Botão duplicado de pagamento -->
-    </div>
-
-    <!-- Placeholder transferência -->
-    <div id="transferencia-info" style="display: none; margin-top: 2rem;">
-      <p style="color: var(--text-color); font-size: 0.95rem;">
-        Pronto habilitaremos transferencias bancarias vía <strong>Khipu</strong> o <strong>Fintoc</strong>.
+    <div class="step-header">
+      <h2 class="step-title">Método de pago</h2>
+      <p class="step-subtitle">
+        Elige cómo quieres pagar tu pedido. Tus datos están cifrados y protegidos.
       </p>
     </div>
+
+    <!-- Métodos de pago -->
+    <div class="payment-methods">
+
+      <!-- Opción: Tarjeta de Crédito/Débito -->
+      <label class="payment-option active" data-method="tarjeta">
+        <div class="option-content">
+          <div class="option-info">
+            <span class="option-title">Tarjeta de Crédito o Débito</span>
+            <div class="option-icons">
+              <img src="assets/img/Visa.svg" alt="Visa" />
+              <img src="assets/img/Mastercard.svg" alt="Mastercard" />
+              <img src="assets/img/American Express.svg" alt="American Express" />
+            </div>
+          </div>
+          <input type="radio" name="pago" value="tarjeta" checked />
+        </div>
+      </label>
+
+      <!-- Opción: Transferencia Bancaria -->
+      <label class="payment-option" data-method="transferencia">
+        <div class="option-content">
+          <div class="option-info">
+            <span class="option-title">Transferencia Bancaria</span>
+            <div class="option-icons">
+              <img src="assets/img/Khipu.svg" alt="Khipu" />
+              <img src="assets/img/Fintoc.svg" alt="Fintoc" />
+            </div>
+          </div>
+          <input type="radio" name="pago" value="transferencia" />
+        </div>
+      </label>
+
+    </div>
+
+    <!-- SumUp Widget -->
+    <div id="sumup-wrapper">
+      <div id="sumup-card" style="min-height: 320px;"></div>
+    </div>
+
+    <!-- Placeholder: Transferencia Info -->
+    <div id="transferencia-info" style="display: none;">
+      <p>
+        Pronto habilitaremos transferencias bancarias vía
+        <strong>Khipu</strong> o <strong>Fintoc</strong>.
+      </p>
+    </div>
+
   </div>
 </div>

@@ -24,7 +24,7 @@
   --border-radius-full: 50%;
 }
 
-/* Reset básico */
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -37,51 +37,52 @@ body {
   font-family: var(--font-family);
   background-color: var(--body-bg);
   color: var(--title-color);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* Cartões do checkout */
+/* Cartões principais */
 .checkout-card {
   background-color: var(--card-bg);
   border-radius: var(--border-radius-md);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  margin-bottom: 1.5em;
-  padding: 1.5em;
+  margin-bottom: 2rem;
+  padding: 1.75rem;
 }
 
 @media (min-width: 768px) {
   .checkout-card {
-    padding: 2em;
+    padding: 2.25rem;
   }
 }
 
-/* Cabeçalho do cartão */
+/* Cabeçalhos */
 .card-header {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
 }
 
 .card-title {
-  font-size: 1.25em;
-  font-weight: 600;
+  font-size: 1.375rem;
+  font-weight: 700;
   color: var(--title-color);
-  margin-bottom: 0.25em;
+  margin-bottom: 0.35rem;
 }
 
 .card-description {
-  font-size: 0.9em;
+  font-size: 1rem;
   color: var(--text-light);
+  line-height: 1.4;
 }
 
-/* Formulário do checkout */
+/* Formulário principal */
 #checkoutForm {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* Controle de exibição por etapa */
+/* Controle de etapas */
 .checkout-step {
   display: none;
 }
@@ -90,17 +91,17 @@ body {
   display: block;
 }
 
-/* Inputs */
+/* Inputs + rótulos */
 .input-wrapper {
   position: relative;
-  margin-bottom: 1.2em;
+  margin-bottom: 1.5rem;
 }
 
 .input-label {
   display: block;
-  font-size: 0.875em;
+  font-size: 0.875rem;
   font-weight: 600;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
   color: var(--title-color);
 }
 
@@ -108,7 +109,7 @@ body {
   width: 100%;
   height: 48px;
   padding: 0.75em 1em;
-  font-size: 1em;
+  font-size: 1rem;
   font-family: var(--font-family);
   border: 1.5px solid var(--border-color);
   border-radius: var(--border-radius-sm);
@@ -122,7 +123,7 @@ body {
   box-shadow: 0 0 0 2px rgba(92, 106, 196, 0.2);
 }
 
-/* Select com ícone customizado */
+/* Select estilizado */
 select.checkout-input {
   appearance: none;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
@@ -132,18 +133,18 @@ select.checkout-input {
   padding-right: 2.5em;
 }
 
-/* Dica abaixo do input */
+/* Dica/ajuda abaixo do input */
 .input-hint {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   color: var(--text-light);
   margin-top: 0.35em;
   display: block;
 }
 
-/* Grid de formulário */
+/* Grid responsivo */
 .form-grid {
   display: grid;
-  gap: 0 1.5em;
+  gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -152,8 +153,21 @@ select.checkout-input {
   }
 }
 
-/* Corrige pseudo-elementos indesejados */
+/* Correções para pseudo-elementos nativos */
 .checkout-input::after,
 .checkout-input::before {
   content: none !important;
+}
+
+/* Estilo refinado para mensagens inline futuras */
+.input-error {
+  font-size: 0.8rem;
+  color: var(--error);
+  margin-top: 0.25rem;
+}
+
+/* Validação futura */
+.checkout-input.invalid {
+  border-color: var(--error);
+  box-shadow: 0 0 0 2px rgba(222, 54, 24, 0.1);
 }

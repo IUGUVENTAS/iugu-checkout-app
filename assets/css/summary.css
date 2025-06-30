@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-/* Cabeçalho colapsável em mobile */
+/* Cabeçalho colapsável para mobile */
 .summary-collapsible-header {
   display: flex;
   justify-content: space-between;
@@ -12,16 +12,17 @@
   cursor: pointer;
   margin-bottom: 0.75em;
   padding: 1em 1.25em;
-  background-color: #f1f3f5;
+  background-color: #f8f9fb;
   border-radius: var(--border-radius-md);
   font-weight: 600;
   font-size: 0.95em;
   color: var(--title-color);
   transition: background-color 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .summary-collapsible-header:hover {
-  background-color: #e9ecef;
+  background-color: #eef1f5;
 }
 
 .summary-collapsible-header .text {
@@ -33,6 +34,7 @@
 .summary-collapsible-header .total-price-preview {
   font-weight: 700;
   color: var(--primary);
+  font-size: 1rem;
 }
 
 #summaryCollapsible {
@@ -40,20 +42,19 @@
   margin-bottom: 1.5em;
 }
 
-/* Card principal do resumo */
+/* Cartão principal do resumo */
 .summary-card {
   background-color: var(--sidebar-bg);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
-  padding: 1.5em;
+  padding: 1.75em 1.5em;
   display: flex;
   flex-direction: column;
-  box-shadow: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 @media (min-width: 992px) {
   .summary-card {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     height: 100%;
   }
 }
@@ -64,13 +65,14 @@
   }
 }
 
-/* Lista de produtos */
+/* Lista de itens */
 .summary-items-list {
   flex-grow: 1;
   overflow-y: auto;
   max-height: 45vh;
   scroll-behavior: smooth;
   padding-right: 4px;
+  margin-bottom: 1.5em;
 }
 
 @media (min-width: 992px) {
@@ -80,13 +82,13 @@
 }
 
 .summary-title {
-  font-size: 1.2em;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--title-color);
   margin-bottom: 1.5em;
 }
 
-/* Produto individual */
+/* Item individual do carrinho */
 .summary-item {
   display: flex;
   align-items: center;
@@ -101,6 +103,7 @@
   object-fit: cover;
   background-color: #eee;
   flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 .summary-item-details {
@@ -112,7 +115,7 @@
 
 .summary-item-name {
   font-weight: 600;
-  font-size: 0.9em;
+  font-size: 0.95rem;
   color: var(--title-color);
   line-height: 1.3;
   white-space: nowrap;
@@ -121,7 +124,7 @@
 }
 
 .summary-item-qty {
-  font-size: 0.85em;
+  font-size: 0.85rem;
   color: var(--text-light);
 }
 
@@ -136,7 +139,7 @@
 .summary-totals {
   border-top: 1px solid var(--border-color);
   padding-top: 1.5em;
-  margin-top: 1.5em;
+  margin-top: 0.5em;
   display: flex;
   flex-direction: column;
   gap: 0.75em;
@@ -145,18 +148,18 @@
 .summary-line {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: var(--text-color);
 }
 
 .summary-line.total {
-  font-size: 1.1em;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--title-color);
-  margin-top: 0.5em;
+  margin-top: 0.75em;
 }
 
-/* Cupom */
+/* Cupom de desconto */
 .coupon-form {
   display: flex;
   gap: 0.5em;
@@ -166,18 +169,23 @@
 
 .coupon-form .checkout-input {
   height: 44px;
-  font-size: 0.9em;
+  font-size: 0.9rem;
+  flex: 1;
+  padding: 0.5em 1em;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--input-bg);
 }
 
 .coupon-btn {
   padding: 0 1.25em;
   height: 44px;
-  border: 0;
+  border: none;
   background-color: var(--dark-gray);
   color: var(--white);
   border-radius: var(--border-radius-sm);
   font-weight: 500;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -186,7 +194,7 @@
   background-color: var(--black);
 }
 
-/* Scroll refinado para lista de produtos */
+/* Scroll refinado */
 .summary-items-list::-webkit-scrollbar {
   width: 6px;
 }

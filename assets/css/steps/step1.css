@@ -1,85 +1,104 @@
-/* --- Estilos para Etapa 1: Datos de identificación (refinado visualmente) --- */
+/* --- Etapa 1: Dados de Identificação (Checkout Profissional) --- */
 
-/* Cartão principal */
+/* Cartão com estilo premium */
 #step1-content .checkout-card {
-  padding: 2em;
-  background: var(--card-bg);
+  padding: 2rem;
+  background-color: var(--card-bg);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--border-color);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.3s ease;
 }
 
-/* Cabeçalho com ícone */
+#step1-content .checkout-card:hover {
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+}
+
+/* Cabeçalho com ícone refinado */
 #step1-content .card-header {
   display: flex;
   align-items: center;
   gap: 0.75em;
-  margin-bottom: 2em;
-  padding-bottom: 1em;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
 }
 
 #step1-content .card-header svg {
   stroke: var(--primary);
-  stroke-width: 1.6;
+  stroke-width: 1.8;
+  width: 24px;
+  height: 24px;
 }
 
 #step1-content .card-header .card-title {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--title-color);
   margin-bottom: 0;
 }
 
-/* Empilhamento dos campos */
+/* Empilhamento vertical entre grupos */
 #step1-content .input-group-stack {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 1.5rem;
 }
 
-/* Layout em grid para nome e rut */
+/* Layout em grid para nome e RUT */
 #step1-content .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25em;
+  gap: 1.5rem;
 }
 
-/* Wrapper dos inputs */
-#step1-content .input-wrapper {
-  position: relative;
+@media (max-width: 767px) {
+  #step1-content .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #step1-content .checkout-card {
+    padding: 1.5rem 1.25rem;
+  }
 }
 
+/* Label refinada */
 #step1-content .input-label {
   display: block;
-  font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 0.5em;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
 }
 
-/* Input padrão */
+/* Campo de input elegante */
 .checkout-input {
   width: 100%;
-  padding: 0.875em 1em;
+  height: 48px;
+  padding: 0.75em 1em;
   font-size: 1rem;
   color: var(--title-color);
   background-color: var(--input-bg);
   border: 1.5px solid var(--border-color);
   border-radius: var(--border-radius-sm);
-  transition: border 0.2s, box-shadow 0.2s;
+  transition: all 0.2s ease;
 }
 
 .checkout-input:focus {
-  outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(92, 106, 196, 0.1);
+  box-shadow: 0 0 0 2px rgba(92, 106, 196, 0.15);
+  outline: none;
 }
 
-/* Grupo de telefone */
+/* Wrapper de campo */
+#step1-content .input-wrapper {
+  position: relative;
+}
+
+/* Grupo de telefone com prefixo */
 #step1-content .input-group {
   display: flex;
-  align-items: center;
+  align-items: stretch;
 }
 
 #step1-content .input-group-prefix {
@@ -87,13 +106,15 @@
   align-items: center;
   justify-content: center;
   padding: 0 1em;
-  height: 48px;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   background: var(--light-gray);
   border: 1.5px solid var(--border-color);
   border-right: none;
   border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
   color: var(--text-color);
+  height: 48px;
+  white-space: nowrap;
 }
 
 #step1-content .input-group .checkout-input {
@@ -101,7 +122,7 @@
   border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
 }
 
-/* Validação */
+/* Validação: ícone e cores */
 .validation-icon {
   position: absolute;
   right: 1em;
@@ -143,17 +164,11 @@
 .error-message {
   color: var(--error);
   font-size: 0.8rem;
-  margin-top: 0.25rem;
+  margin-top: 0.4rem;
 }
 
-/* Responsivo */
-@media (max-width: 767px) {
-  #step1-content .checkout-card {
-    padding: 1.5em 1.25em;
-  }
-
-  #step1-content .form-grid {
-    grid-template-columns: 1fr;
-    gap: 1em;
-  }
+/* Ícone SVG interno (opcional) */
+.input-wrapper svg.validation-icon {
+  stroke-width: 2;
+  stroke: var(--success);
 }
