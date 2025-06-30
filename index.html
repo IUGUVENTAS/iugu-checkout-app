@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Finaliza tu Compra</title>
 
-  <!-- Fontes -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -25,11 +25,11 @@
 <body>
   <div class="page-container">
     <main class="main-content">
-      
-      <!-- Barra de progresso -->
+
+      <!-- Progresso -->
       <div class="progress-bar-container"></div>
 
-      <!-- Sidebar com resumo -->
+      <!-- Sidebar: Resumen -->
       <aside class="sidebar">
         <div class="summary-collapsible-header" id="summaryHeader">
           <span class="text">
@@ -46,6 +46,7 @@
 
         <div class="summary-card" id="summaryCollapsible">
           <h2 class="summary-title">Resumen de tu compra</h2>
+
           <div class="summary-items-list" id="summary-items-list">
             <p>Cargando tu carrito...</p>
           </div>
@@ -72,7 +73,7 @@
         </div>
       </aside>
 
-      <!-- Container do Checkout -->
+      <!-- Checkout -->
       <div class="checkout-flow-container">
         <form id="checkoutForm" novalidate></form>
         <div class="footer-buttons">
@@ -84,21 +85,22 @@
     </main>
   </div>
 
-  <!-- SumUp SDK obrigatório -->
+  <!-- SDK SumUp -->
   <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
 
-  <!-- Scripts do Sistema -->
+  <!-- JS Global -->
+  <script src="assets/js/utils.js"></script>
   <script src="assets/js/injectSteps.js"></script>
   <script src="assets/js/steps.js"></script>
   <script src="assets/js/summary.js"></script>
   <script src="assets/js/postMessage.js"></script>
 
-  <!-- Scripts por Etapa -->
+  <!-- JS por Etapa -->
   <script src="assets/js/steps/step1.js"></script>
   <script src="assets/js/steps/step2.js"></script>
   <script src="assets/js/steps/step3.js"></script>
 
-  <!-- Inicialização Final -->
+  <!-- JS Inicial -->
   <script src="assets/js/main.js"></script>
 </body>
 </html>
