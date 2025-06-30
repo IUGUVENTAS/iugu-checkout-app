@@ -1,0 +1,74 @@
+/* --- Estilos para Etapa 3: Pagamento --- */
+
+.payment-methods-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.payment-method-card {
+  display: block;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 1.25em 1.5em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.payment-method-card:hover {
+  border-color: var(--primary); /* Corrigido: usa --primary */
+}
+
+.payment-method-card.active {
+  border-color: var(--primary);
+  background-color: #f8faff; /* Ou substitua por var(--active-bg) */
+  box-shadow: 0 4px 12px rgba(0, 98, 255, 0.1);
+
+  /* Acessibilidade extra */
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.payment-method-card input[type="radio"] {
+  display: none;
+}
+
+.payment-method-card .card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.payment-method-card .card-title-payment {
+  font-weight: 600;
+  color: var(--title-color);
+  font-size: 1rem;
+}
+
+.method-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-wrap: wrap;      /* Garante que ícones quebrem em telas menores */
+  flex-shrink: 0;       /* Impede que encolham demais */
+}
+
+.method-icons img {
+  height: auto;
+  max-height: 24px;
+  width: auto;
+  display: block;
+}
+
+.payment-method-card[data-method="transferencia"] .method-icons img {
+  max-height: 20px;
+}
+
+/* MOBILE-SPECIFIC AJUSTES */
+@media (max-width: 767px) {
+  .payment-method-card {
+    padding: 1.25em 1.25em;
+  }
+}

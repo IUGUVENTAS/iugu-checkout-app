@@ -1,0 +1,74 @@
+.footer-buttons {
+  margin-top: auto;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1em;
+  width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-lg);
+  font-size: 1em;
+  font-weight: 600;
+  height: 48px;
+  padding: 0 1.5em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-gray);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--light-gray);
+  border-color: #ccc;
+}
+
+@media (max-width: 991px) {
+  .footer-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: var(--white);
+    padding: 1em 1.25em;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.04);
+    border-top: 1px solid var(--border-color);
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-radius: 20px 20px 0 0; /* Novo: arredondamento superior do container fixo */
+  }
+
+  .btn {
+    width: auto !important;
+  }
+
+  .btn-primary {
+    flex-grow: 1;
+  }
+
+  .btn-secondary {
+    min-width: 100px;
+  }
+}

@@ -1,0 +1,3 @@
+# Ignorar a pasta de dependências do Node.js durante o deploy
+# Isto previne erros de "Invalid filename" e acelera o upload.
+node_modules

@@ -1,0 +1,46 @@
+<div class="checkout-step" id="step3-content">
+  <div class="checkout-card">
+    <div class="card-header">
+      <h2 class="card-title">3. Pago</h2>
+      <p class="card-description">Todas las transacciones son seguras y están encriptadas.</p>
+    </div>
+
+    <div class="payment-methods-container">
+      <label class="payment-method-card active" data-method="tarjeta">
+        <input type="radio" name="pago" value="tarjeta" checked>
+        <div class="card-content">
+          <span class="card-title-payment">Tarjeta de Crédito</span>
+          <div class="method-icons">
+            <img src="assets/img/Visa.svg" alt="Visa - Tarjeta de crédito" />
+            <img src="assets/img/Mastercard.svg" alt="Mastercard - Tarjeta de crédito" />
+            <img src="assets/img/American Express.svg" alt="American Express - Tarjeta de crédito" />
+          </div>
+        </div>
+      </label>
+
+      <label class="payment-method-card" data-method="transferencia">
+        <input type="radio" name="pago" value="transferencia">
+        <div class="card-content">
+          <span class="card-title-payment">Paga con tu Banco | Transferencias</span>
+          <div class="method-icons">
+            <img src="assets/img/Khipu.svg" alt="Khipu - Transferencia bancaria" />
+            <img src="assets/img/Fintoc.svg" alt="Fintoc - Transferencia bancaria" />
+          </div>
+        </div>
+      </label>
+    </div>
+
+    <!-- Conteúdo do Widget SumUp -->
+    <div id="sumup-wrapper" style="display: block; margin-top: 2em;">
+      <div id="sumup-card" style="min-height: 300px;"></div>
+      <button id="custom-submit-button" class="btn btn-primary" style="margin-top: 1.25em; width: 100%;">
+        Pagar ahora
+      </button>
+    </div>
+
+    <!-- Placeholder para futuro método de transferencia -->
+    <div id="transferencia-info" style="display: none; margin-top: 2em;">
+      <p style="color: var(--text-color); font-size: 0.9em;">Pronto habilitaremos transferencias bancarias vía Khipu o Fintoc.</p>
+    </div>
+  </div>
+</div>

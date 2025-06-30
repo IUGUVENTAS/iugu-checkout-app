@@ -1,0 +1,84 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+@media (min-width: 992px) {
+    .page-container {
+        padding: 2em 1.5em;
+    }
+
+    .main-content {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        grid-template-rows: auto 1fr;
+        gap: 0 2.5em;
+    }
+
+    .progress-bar-container {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        margin-bottom: 2em !important;
+    }
+
+    .checkout-flow-container {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        overflow-y: auto;
+        padding-right: 1em;
+        padding-bottom: 6em; /* Para garantir espaço abaixo do botão fixo */
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-color) transparent;
+    }
+
+    .checkout-flow-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .checkout-flow-container::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+        border-radius: 3px;
+    }
+
+    .sidebar {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+    }
+
+    #summaryCollapsible {
+        display: flex !important;
+    }
+
+    .summary-collapsible-header {
+        display: none !important;
+    }
+}
+
+@media (max-width: 991px) {
+    html, body {
+        overflow-y: auto;
+    }
+
+    .main-content {
+        padding: 1.5em 1.25em 120px 1.25em; /* Ajustado: mais espaço lateral e inferior */
+    }
+
+    .checkout-flow-container {
+        padding-bottom: 6em; /* Garante espaço para o botão fixo */
+    }
+
+    .footer-buttons {
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05); /* Sombra sutil para botão fixo */
+    }
+}

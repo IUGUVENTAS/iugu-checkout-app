@@ -1,0 +1,158 @@
+/* --- Estilos para Etapa 1: Datos de identificación --- */
+
+/* Ajuste no card principal para um visual mais limpo */
+#step1-content .checkout-card {
+  padding: 1.5em;
+  border: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) {
+  #step1-content .checkout-card {
+    padding: 2.5em;
+  }
+}
+
+/* Cabeçalho com ícone */
+#step1-content .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+#step1-content .card-header svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--primary);
+  stroke-width: 1.5;
+}
+
+#step1-content .card-header .card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+/* Agrupamento de todos os inputs com espaçamento */
+#step1-content .input-group-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+}
+
+/* Wrapper de input */
+#step1-content .input-wrapper {
+  position: relative;
+}
+
+/* Grupo de Input para Telefone */
+#step1-content .input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#step1-content .input-group .input-group-prefix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1em;
+  height: 48px;
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--text-color);
+  background-color: var(--light-gray);
+  border: 1.5px solid var(--border-color);
+  border-right: none;
+  border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+}
+
+#step1-content .input-group .checkout-input {
+  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+  border-left: none; /* Suaviza o encaixe com o prefixo */
+}
+
+#step1-content .input-group .checkout-input:focus {
+  z-index: 2;
+}
+
+/* Ícone de validação */
+.validation-icon {
+  position: absolute;
+  right: 1em;
+  bottom: 14px;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.input-group .validation-icon {
+  right: 1em;
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+}
+
+/* Estilos de validação visual */
+.input-wrapper.valid .validation-icon,
+.input-group.valid .validation-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.input-wrapper.valid .checkout-input,
+.input-group.valid .checkout-input {
+  border-color: var(--success);
+  padding-right: 2.8em;
+}
+
+.input-wrapper.valid .checkout-input:focus {
+  box-shadow: 0 0 0 2px rgba(40, 199, 111, 0.2);
+}
+
+.input-wrapper.error .checkout-input,
+.input-group.error .checkout-input {
+  border-color: var(--error);
+}
+
+.input-wrapper.error .checkout-input:focus {
+  box-shadow: 0 0 0 2px rgba(222, 54, 24, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 767px) {
+  #step1-content .checkout-card {
+    padding: 1.5em 1.25em;
+  }
+}
+
+#step1-content .input-wrapper:last-of-type {
+  margin-bottom: 2em;
+}
+
+#step1-content .input-label {
+  line-height: 1.4;
+}
+.checkout-input::after,
+.checkout-input::before {
+  content: none !important;
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.input-wrapper.error input {
+    border-color: var(--error);
+}
+
+.input-wrapper.valid input {
+    border-color: var(--success);
+}
