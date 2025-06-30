@@ -1,0 +1,14 @@
+# Ignorar todas dependências Node
+**/node_modules/
+
+# Ignorar arquivos de lock (se não quiser versionar dependências do plugin)
+netlify/plugins/package-lock.json
+
+# Ignorar dados locais e estado do Netlify
+.netlify/
+netlify/state.json
+
+# Arquivos desnecessários do sistema
+*.log
+.DS_Store
+Thumbs.db
