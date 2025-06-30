@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Finaliza tu Compra</title>
 
+  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- CSS Global -->
   <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="stylesheet" href="assets/css/layout.css" />
   <link rel="stylesheet" href="assets/css/progress.css" />
   <link rel="stylesheet" href="assets/css/summary.css" />
   <link rel="stylesheet" href="assets/css/buttons.css" />
+
+  <!-- CSS por Etapa -->
   <link rel="stylesheet" href="assets/css/steps/step1.css" />
   <link rel="stylesheet" href="assets/css/steps/step2.css" />
   <link rel="stylesheet" href="assets/css/steps/step3.css" />
@@ -21,8 +25,11 @@
 <body>
   <div class="page-container">
     <main class="main-content">
+      
+      <!-- Barra de progresso -->
       <div class="progress-bar-container"></div>
 
+      <!-- Sidebar com resumo -->
       <aside class="sidebar">
         <div class="summary-collapsible-header" id="summaryHeader">
           <span class="text">
@@ -36,21 +43,36 @@
           </span>
           <span class="total-price-preview"></span>
         </div>
+
         <div class="summary-card" id="summaryCollapsible">
           <h2 class="summary-title">Resumen de tu compra</h2>
-          <div class="summary-items-list" id="summary-items-list"><p>Cargando tu carrito...</p></div>
+          <div class="summary-items-list" id="summary-items-list">
+            <p>Cargando tu carrito...</p>
+          </div>
+
           <form class="coupon-form">
             <input type="text" class="checkout-input" placeholder="Cupón de descuento" />
             <button type="button" class="coupon-btn">Aplicar</button>
           </form>
+
           <div class="summary-totals">
-            <div class="summary-line"><span class="label">Subtotal</span><span class="value" id="summary-subtotal"></span></div>
-            <div class="summary-line"><span class="label">Envío</span><span class="value" id="summary-shipping">Gratis</span></div>
-            <div class="summary-line total"><span class="label">Total</span><span class="value" id="summary-total"></span></div>
+            <div class="summary-line">
+              <span class="label">Subtotal</span>
+              <span class="value" id="summary-subtotal"></span>
+            </div>
+            <div class="summary-line">
+              <span class="label">Envío</span>
+              <span class="value" id="summary-shipping">Gratis</span>
+            </div>
+            <div class="summary-line total">
+              <span class="label">Total</span>
+              <span class="value" id="summary-total"></span>
+            </div>
           </div>
         </div>
       </aside>
 
+      <!-- Container do Checkout -->
       <div class="checkout-flow-container">
         <form id="checkoutForm" novalidate></form>
         <div class="footer-buttons">
@@ -58,20 +80,25 @@
           <button type="button" class="btn btn-primary" id="nextButton">Continuar</button>
         </div>
       </div>
+
     </main>
   </div>
 
   <!-- SumUp SDK obrigatório -->
   <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
 
-  <!-- JS modular -->
+  <!-- Scripts do Sistema -->
   <script src="assets/js/injectSteps.js"></script>
   <script src="assets/js/steps.js"></script>
   <script src="assets/js/summary.js"></script>
   <script src="assets/js/postMessage.js"></script>
+
+  <!-- Scripts por Etapa -->
   <script src="assets/js/steps/step1.js"></script>
   <script src="assets/js/steps/step2.js"></script>
   <script src="assets/js/steps/step3.js"></script>
+
+  <!-- Inicialização Final -->
   <script src="assets/js/main.js"></script>
 </body>
 </html>

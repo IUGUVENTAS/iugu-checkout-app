@@ -56,7 +56,8 @@ function populateSummary(cartData) {
     });
 
     const rawTotal = cartData.total_price;
-    const totalFormatted = (rawTotal / 100).toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+    const totalPesos = Math.round(rawTotal / 100);
+    const totalFormatted = totalPesos.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
 
     subtotalEl.textContent = totalFormatted;
     totalEl.textContent = totalFormatted;
@@ -64,8 +65,7 @@ function populateSummary(cartData) {
         totalPreviewEl.textContent = totalFormatted;
     }
 
-    // ✅ CORREÇÃO: Salva o total bruto (em "centavos") diretamente.
-    // Este valor é o que a API da SumUp espera.
-    localStorage.setItem('checkout_total', rawTotal);
-    console.log(`[SUMMARY] Valor bruto ${rawTotal} salvo em localStorage.`);
+    // ✅ Agora salva o valor já convertido para pesos inteiros
+    localStorage.setItem('checkout_total', totalPesos);
+    console.log(`[SUMMARY] Valor convertido e salvo no localStorage: ${totalPesos}`);
 }

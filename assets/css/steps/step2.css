@@ -31,6 +31,10 @@
   color: var(--title-color);
 }
 
+.section-header-text {
+  font-size: 0.95rem;
+}
+
 /* Botão estilo "Pill" */
 .pill-button {
   display: inline-flex;
@@ -57,10 +61,13 @@
   padding: 0.4em 0.9em;
 }
 
-/* Card base */
+/* Cartão base */
 #step2-content .checkout-card {
-  padding: 2em;
+  background-color: var(--card-bg);
   border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 2em;
+  margin-bottom: 2em;
 }
 
 @media (max-width: 767px) {
@@ -73,6 +80,13 @@
   margin-bottom: 2em;
 }
 
+#step2-content .card-header .card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--title-color);
+}
+
+/* Grid de formulário */
 #step2-content .form-grid {
   display: grid;
   gap: 1em;
@@ -89,7 +103,38 @@
   grid-column: span 2;
 }
 
-/* --- Validação --- */
+/* Input */
+#step2-content .input-wrapper {
+  position: relative;
+}
+
+#step2-content .input-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color);
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.checkout-input {
+  width: 100%;
+  padding: 0.75em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--input-bg);
+  color: var(--title-color);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checkout-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(92, 106, 196, 0.15);
+}
+
+/* Validação */
 .validation-icon {
   position: absolute;
   right: 1em;
@@ -97,6 +142,9 @@
   transform: translateY(25%) scale(0.8);
   opacity: 0;
   transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
 }
 
 .input-wrapper.valid .validation-icon {
@@ -109,7 +157,19 @@
   padding-right: 2.8em;
 }
 
-/* --- Cards de Entrega (estilo novo com ícones) --- */
+.input-wrapper.valid .checkout-input:focus {
+  box-shadow: 0 0 0 2px rgba(40, 199, 111, 0.2);
+}
+
+.input-wrapper.error .checkout-input {
+  border-color: var(--error);
+}
+
+.input-wrapper.error .checkout-input:focus {
+  box-shadow: 0 0 0 2px rgba(222, 54, 24, 0.2);
+}
+
+/* Cards de Entrega */
 .shipping-options {
   display: flex;
   flex-direction: column;
@@ -171,17 +231,23 @@
   font-size: 1.1em;
 }
 
-/* --- Fade-in animation --- */
+/* Fade-in animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-in {
   animation: fadeIn 0.4s ease-out forwards;
 }
 
-/* Espaçamento inferior no último card */
+/* Espaço final */
 .shipping-card:last-of-type {
   margin-bottom: 2em;
 }

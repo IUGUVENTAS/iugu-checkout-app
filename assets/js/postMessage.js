@@ -1,15 +1,9 @@
 // /assets/js/postMessage.js
 
 /**
- * @const {string[]} ALLOWED_PARENT_ORIGINS
- * @description Lista de origens pai (loja Shopify) autorizadas a enviar mensagens para este iframe.
+ * @const {string} MESSAGE_SOURCE_ID
+ * @description Identificador esperado nas mensagens para validar comunicação legítima com a loja.
  */
-const ALLOWED_PARENT_ORIGINS = [
-    'https://sffats-9p.myshopify.com'
-    // Adicione aqui a origem do seu ambiente de desenvolvimento da loja, se tiver
-];
-
-// O identificador que a loja Shopify espera nas mensagens enviadas pelo iframe.
 const MESSAGE_SOURCE_ID = 'pinflag-shopify-pinmap-pro';
 
 /**
@@ -17,26 +11,32 @@ const MESSAGE_SOURCE_ID = 'pinflag-shopify-pinmap-pro';
  */
 function initializePostMessageListener() {
     window.addEventListener('message', (event) => {
-        // 🔐 Verificação de Segurança: A mensagem vem de uma origem pai autorizada?
-        if (!ALLOWED_PARENT_ORIGINS.includes(event.origin)) {
-            console.warn(`🛑 Mensagem rejeitada pelo iframe: origem não confiável -> ${event.origin}`);
+        const origin = event.origin;
+
+        // Lista dinâmica de domínios autorizados
+        const isTrustedOrigin =
+            origin === 'https://cordia.cl' ||
+            origin === 'https://tienda-block.store' ||
+            origin === 'https://gateway.sumup.com' ||
+            /\.myshopify\.com$/.test(new URL(origin).hostname);
+
+        if (!isTrustedOrigin) {
+            console.warn(`🛑 Mensagem rejeitada pelo iframe: origem não confiável -> ${origin}`);
             return;
         }
 
-        // Processa apenas mensagens com a estrutura esperada
         if (event.data && event.data.type) {
-            handleParentMessage(event.data, event.origin);
+            handleParentMessage(event.data, origin);
         }
     });
 }
 
 /**
  * Trata as mensagens recebidas da loja Shopify.
- * @param {object} data - O objeto da mensagem (ex: { type, origin, message }).
- * @param {string} origin - A origem da mensagem, já validada.
+ * @param {object} data - Objeto da mensagem (type, origin, message).
+ * @param {string} origin - Origem da mensagem.
  */
 function handleParentMessage(data, origin) {
-    // Verifica a "senha" secundária que a sua loja envia
     if (data.origin !== MESSAGE_SOURCE_ID) {
         console.warn(`🛑 Mensagem de origem válida, mas com identificador incorreto: ${data.origin}`);
         return;
@@ -45,58 +45,62 @@ function handleParentMessage(data, origin) {
     switch (data.type) {
         case 'receive-cart-info':
             console.log('[IFRAME] Dados do carrinho recebidos:', data.message);
-            
-            // Suas funções para popular o checkout
-            if (window.populateSummary) {
+
+            if (typeof populateSummary === 'function') {
                 populateSummary(data.message);
             }
+
             localStorage.setItem('checkout_cart', JSON.stringify(data.message));
 
-            // Notifica a loja que os dados foram recebidos e processados
             sendMessageToParent('iframe-loaded', true, origin);
             break;
+
+        // outros cases podem ser adicionados aqui
     }
 }
 
 /**
- * Envia uma mensagem de forma segura para a janela pai (loja Shopify).
- * @param {string} type - O tipo de evento (ex: 'redirect-to-checkout').
- * @param {*} message - O conteúdo da mensagem.
- * @param {string} targetOrigin - A origem para a qual a mensagem deve ser enviada.
+ * Envia uma mensagem segura para a janela pai (loja Shopify).
+ * @param {string} type - Tipo do evento (ex: 'iframe-loaded').
+ * @param {*} message - Dados da mensagem.
+ * @param {string} targetOrigin - Origem de destino.
  */
 function sendMessageToParent(type, message, targetOrigin) {
-    if (!ALLOWED_PARENT_ORIGINS.includes(targetOrigin)) {
+    const isTrustedTarget =
+        targetOrigin === 'https://cordia.cl' ||
+        targetOrigin === 'https://tienda-block.store' ||
+        targetOrigin === 'https://gateway.sumup.com' ||
+        /\.myshopify\.com$/.test(new URL(targetOrigin).hostname);
+
+    if (!isTrustedTarget) {
         console.error(`🛑 Tentativa de enviar mensagem para origem não permitida: ${targetOrigin}`);
         return;
     }
 
     const payload = {
-        type: type,
-        origin: MESSAGE_SOURCE_ID, // Usa o identificador que a loja espera
-        message: message
+        type,
+        origin: MESSAGE_SOURCE_ID,
+        message
     };
-    
+
     parent.postMessage(payload, targetOrigin);
 }
 
 /**
- * Função para fechar o modal a partir do iframe.
- * Ex: pode ser chamada por um botão "Cancelar" ou "Voltar para a loja".
+ * Fecha o modal externo a partir do iframe.
  */
 function closeCheckoutModal() {
-    sendMessageToParent('close-iframe', true, ALLOWED_PARENT_ORIGINS[0]);
+    sendMessageToParent('close-iframe', true, 'https://cordia.cl');
 }
 
 /**
- * Função para redirecionar o usuário para a página de sucesso após o pagamento.
- * @param {string} finalUrl - A URL completa da página de "Obrigado".
+ * Redireciona o usuário para a página de sucesso da loja.
+ * @param {string} finalUrl - URL opcional de sucesso.
  */
 function redirectToSuccessPage(finalUrl) {
-    // Por padrão, usa a URL da sua loja + a página de obrigado.
-    const url = finalUrl || `${ALLOWED_PARENT_ORIGINS[0]}/pages/gracias-por-tu-compra`;
-    sendMessageToParent('redirect-to-checkout', url, ALLOWED_PARENT_ORIGINS[0]);
+    const url = finalUrl || 'https://cordia.cl/pages/gracias-por-tu-compra';
+    sendMessageToParent('redirect-to-checkout', url, 'https://cordia.cl');
 }
-
 
 // --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {

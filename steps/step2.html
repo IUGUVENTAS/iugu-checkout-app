@@ -1,15 +1,27 @@
 <div class="checkout-step" id="step2-content">
+  <!-- Cabeçalho da seção -->
   <div class="section-header">
     <div class="section-header-main">
-      <svg class="icon-truck" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"></path><path d="M14 9h4l4 4v4h-8v-8Z"></path><circle cx="7.5" cy="18.5" r="2.5"></circle><circle cx="17.5" cy="18.5" r="2.5"></circle></svg>
-      <span>Modo entrega: <strong>Despacho a domicilio</strong></span>
+      <svg class="icon-truck" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11" />
+        <path d="M14 9h4l4 4v4h-8v-8Z" />
+        <circle cx="7.5" cy="18.5" r="2.5" />
+        <circle cx="17.5" cy="18.5" r="2.5" />
+      </svg>
+      <span class="section-header-text">
+        Modo entrega: <strong>Despacho a domicilio</strong>
+      </span>
     </div>
     <button type="button" class="pill-button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+      </svg>
       Cambiar
     </button>
   </div>
 
+  <!-- Cartão com formulário -->
   <div class="checkout-card">
     <div class="card-header">
       <h2 class="card-title">Dirección de Despacho</h2>
@@ -38,21 +50,25 @@
         </select>
         <span class="validation-icon"></span>
       </div>
+
       <div class="input-wrapper">
         <label class="input-label" for="comuna">Comuna</label>
         <input id="comuna" type="text" class="checkout-input" placeholder="Ingresa tu comuna" required>
         <span class="validation-icon"></span>
       </div>
+
       <div class="input-wrapper">
         <label class="input-label" for="calle">Calle</label>
         <input id="calle" type="text" class="checkout-input" placeholder="Ej: Av. Libertador" required>
         <span class="validation-icon"></span>
       </div>
+
       <div class="input-wrapper">
         <label class="input-label" for="numero">Número</label>
         <input id="numero" type="text" class="checkout-input" placeholder="Ej: 1234" required>
         <span class="validation-icon"></span>
       </div>
+
       <div class="input-wrapper grid-col-span-2">
         <label class="input-label" for="depto">Depto / Oficina (Opcional)</label>
         <input id="depto" type="text" class="checkout-input" placeholder="Ej: Depto 56B">
@@ -60,6 +76,7 @@
     </div>
   </div>
 
+  <!-- Opções de envio -->
   <div class="shipping-options">
     <div class="shipping-card">
       <div class="icon-wrapper">

@@ -1,69 +1,86 @@
+/* --- Barra de Progresso do Checkout --- */
+
 .progress-bar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1em;
-    padding: 0 0.5em; /* mais respiro lateral em mobile */
-    gap: 0.5em; /* espaçamento entre steps */
-    flex-wrap: wrap; /* permite quebrar se for necessário */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5em;
+  padding: 0 0.5em;
+  margin-bottom: 1em;
+  flex-wrap: wrap;
 }
 
+/* Etapas individuais */
 .progress-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    flex: 1;
-    min-width: 80px; /* impede que steps fiquem pequenos demais */
-    gap: 0.25em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  flex: 1;
+  min-width: 80px;
+  gap: 0.25em;
 }
 
+/* Círculo de número */
 .step-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: var(--border-radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.875em;
-    transition: background-color 0.3s, color 0.3s;
-    background-color: var(--border-color);
-    color: var(--text-color);
-    z-index: 2;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875em;
+  background-color: var(--border-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 2;
 }
 
+/* Rótulo da etapa */
 .step-label {
-    font-size: 0.75em;
-    color: var(--text-color);
-    font-weight: 500;
-    line-height: 1.2;
+  font-size: 0.75em;
+  color: var(--text-color);
+  font-weight: 500;
+  line-height: 1.2;
+  max-width: 90px;
 }
 
+/* Etapa atual */
 .progress-step.active .step-circle {
-    background-color: var(--primary);
-    color: var(--white);
+  background-color: var(--primary);
+  color: var(--white);
 }
 
+/* Etapa concluída */
 .progress-step.completed .step-circle {
-    background-color: var(--success);
-    color: var(--white);
+  background-color: var(--success);
+  color: var(--white);
 }
 
-/* Linha conectando os steps */
+/* Linha entre círculos */
 .progress-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 16px;
-    left: 50%;
-    height: 2px;
-    width: 100%;
-    background-color: var(--border-color);
-    z-index: 1;
-    transform: translateX(16px);
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: var(--border-color);
+  z-index: 1;
+  transform: translateX(16px);
 }
 
+/* Linha concluída */
 .progress-step.completed::after {
-    background-color: var(--success);
+  background-color: var(--success);
+}
+
+/* Mobile-friendly */
+@media (max-width: 480px) {
+  .step-label {
+    font-size: 0.68em;
+    max-width: 70px;
+  }
 }

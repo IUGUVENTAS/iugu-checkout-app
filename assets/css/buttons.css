@@ -1,3 +1,5 @@
+/* --- Botões Fixos no Rodapé --- */
+
 .footer-buttons {
   margin-top: auto;
   padding-top: 1.5em;
@@ -6,6 +8,7 @@
   flex-direction: column-reverse;
   gap: 1em;
   width: 100%;
+  background-color: var(--white);
 }
 
 .btn {
@@ -21,17 +24,23 @@
   transition: all 0.2s ease;
   border: 2px solid transparent;
   text-decoration: none;
+  line-height: 1;
+  white-space: nowrap;
 }
 
+/* Botão Principal */
 .btn-primary {
   background-color: var(--black);
   color: var(--white);
+  border-color: var(--black);
 }
 
 .btn-primary:hover {
   background-color: var(--dark-gray);
+  border-color: var(--dark-gray);
 }
 
+/* Botão Secundário */
 .btn-secondary {
   background-color: transparent;
   color: var(--text-color);
@@ -43,6 +52,7 @@
   border-color: #ccc;
 }
 
+/* Comportamento em Mobile */
 @media (max-width: 991px) {
   .footer-buttons {
     position: fixed;
@@ -57,18 +67,36 @@
     flex-direction: row !important;
     justify-content: space-between !important;
     align-items: center !important;
-    border-radius: 20px 20px 0 0; /* Novo: arredondamento superior do container fixo */
+    border-radius: 20px 20px 0 0;
   }
 
   .btn {
     width: auto !important;
+    flex-shrink: 0;
   }
 
   .btn-primary {
     flex-grow: 1;
+    min-width: 150px;
   }
 
   .btn-secondary {
     min-width: 100px;
   }
+}
+
+/* Estados desabilitados */
+.btn[disabled],
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Ajuste para ícones internos */
+.btn svg {
+  margin-left: 0.5em;
+  width: 1em;
+  height: 1em;
+  stroke-width: 2;
 }

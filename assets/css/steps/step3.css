@@ -1,74 +1,115 @@
-/* --- Estilos para Etapa 3: Pagamento --- */
+/* --- Estilo Profissional para Etapa 3: Pagamento --- */
 
 .payment-methods-container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
 }
 
+/* Cartões de método de pagamento */
 .payment-method-card {
-  display: block;
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-md);
-  padding: 1.25em 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  background-color: var(--white);
+  transition: all 0.2s ease;
   cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
+  gap: 1rem;
 }
 
 .payment-method-card:hover {
-  border-color: var(--primary); /* Corrigido: usa --primary */
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.1);
 }
 
 .payment-method-card.active {
   border-color: var(--primary);
-  background-color: #f8faff; /* Ou substitua por var(--active-bg) */
-  box-shadow: 0 4px 12px rgba(0, 98, 255, 0.1);
-
-  /* Acessibilidade extra */
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+  background-color: #f4f6ff;
+  box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.15);
 }
 
+/* Esconde o radio padrão */
 .payment-method-card input[type="radio"] {
-  display: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  position: relative;
 }
 
-.payment-method-card .card-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+.payment-method-card input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
 }
 
+/* Conteúdo */
 .payment-method-card .card-title-payment {
+  font-size: 1rem;
   font-weight: 600;
   color: var(--title-color);
-  font-size: 1rem;
 }
 
 .method-icons {
   display: flex;
   align-items: center;
-  gap: 0.5em;
-  flex-wrap: wrap;      /* Garante que ícones quebrem em telas menores */
-  flex-shrink: 0;       /* Impede que encolham demais */
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
 .method-icons img {
-  height: auto;
   max-height: 24px;
+  height: auto;
   width: auto;
-  display: block;
+  object-fit: contain;
 }
 
 .payment-method-card[data-method="transferencia"] .method-icons img {
   max-height: 20px;
 }
 
-/* MOBILE-SPECIFIC AJUSTES */
+/* SumUp Widget */
+#sumup-wrapper {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+
+/* Oculta o botão duplicado */
+#custom-submit-button {
+  display: none !important;
+}
+
+/* Placeholder para transferências */
+#transferencia-info {
+  margin-top: 2rem;
+  background: #f9f9f9;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+/* Responsividade */
 @media (max-width: 767px) {
   .payment-method-card {
-    padding: 1.25em 1.25em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .payment-method-card input[type="radio"] {
+    align-self: flex-end;
   }
 }
