@@ -99,20 +99,23 @@ function updateButtonVisibility() {
   switch (currentStep) {
     case 1:
       backButton.style.display = 'none';
-      nextButton.style.display = 'inline-block';
+      nextButton.style.display = 'inline-flex';
+      nextButton.innerHTML = 'Continuar';
       if (sumupCardContainer) sumupCardContainer.style.display = 'none';
       break;
 
     case 2:
-      backButton.style.display = 'inline-block';
-      nextButton.style.display = 'inline-block';
+      backButton.style.display = 'inline-flex';
+      nextButton.style.display = 'inline-flex';
+      nextButton.innerHTML = 'Continuar';
       if (sumupCardContainer) sumupCardContainer.style.display = 'none';
       break;
 
     case 3:
-      backButton.style.display = 'inline-block';
-      nextButton.style.display = 'none'; // Esconde botão "Continuar"
-      if (sumupCardContainer) sumupCardContainer.style.display = 'block'; // Mostra card de pagamento
+      backButton.style.display = 'inline-flex';
+      nextButton.style.display = 'inline-flex';
+      nextButton.innerHTML = 'Pagar ahora';
+      if (sumupCardContainer) sumupCardContainer.style.display = 'block';
       break;
   }
 }

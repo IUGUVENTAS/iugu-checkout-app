@@ -17,6 +17,10 @@ async function initializeStep3() {
     return;
   }
 
+  // ✅ Garante que o botão "Pagar ahora" esteja visível e com texto correto
+  nextButton.style.display = 'inline-flex';
+  nextButton.innerHTML = 'Pagar ahora';
+
   try {
     const rawAmount = localStorage.getItem('checkout_total');
     const email = localStorage.getItem('email');
