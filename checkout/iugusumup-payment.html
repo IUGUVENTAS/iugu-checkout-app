@@ -3,80 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pago seguro con tarjeta | CORDIA</title>
+  <title>Pago con tarjeta | CORDIA</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Fonte recomendada -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- CSS Global -->
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="stylesheet" href="assets/css/layout.css" />
-  <link rel="stylesheet" href="assets/css/summary.css" />
-
-  <!-- SDK SumUp -->
+  <!-- SDK oficial SumUp -->
   <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #sumup-card {
+      min-height: 100vh;
+    }
+
+    #error-message {
+      color: red;
+      font-weight: 600;
+      text-align: center;
+      padding: 1rem;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="page-container">
-    <main class="main-content">
 
-      <!-- SumUp Pagamento -->
-      <div class="checkout-flow-container" style="padding-bottom: 0;">
-        <div class="checkout-card">
-          <div class="card-header">
-            <h2 class="card-title">Completa tu pago con tarjeta</h2>
-            <p class="card-description">Tus datos están protegidos con cifrado SSL.</p>
-          </div>
-
-          <div id="sumup-card" style="min-height: 320px;"></div>
-          <div id="error-message" class="error-message" style="display: none; color: red; margin-top: 1rem; font-weight: 600;"></div>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <div class="summary-card">
-          <h2 class="summary-title">Resumen de tu compra</h2>
-          <div class="summary-items-list" id="summary-items-list"></div>
-
-          <div class="summary-totals">
-            <div class="summary-line">
-              <span class="label">Subtotal</span>
-              <span class="value" id="summary-subtotal"></span>
-            </div>
-            <div class="summary-line">
-              <span class="label">Envío</span>
-              <span class="value">Gratis</span>
-            </div>
-            <div class="summary-line total">
-              <span class="label">Total</span>
-              <span class="value" id="summary-total"></span>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-    </main>
-  </div>
+  <div id="sumup-card"></div>
+  <div id="error-message"></div>
 
   <script>
     const checkoutId = new URLSearchParams(window.location.search).get('id');
     const errorMessage = document.getElementById('error-message');
 
     if (!checkoutId) {
-      errorMessage.innerText = 'Error: Falta el ID del checkout.';
+      errorMessage.innerText = 'Error: falta el ID del checkout.';
       errorMessage.style.display = 'block';
     } else {
       SumUpCard.mount({
         id: 'sumup-card',
         checkoutId: checkoutId,
         locale: 'es-CL',
+        currency: 'CLP',
         showSubmitButton: true,
         showFooter: true,
         onResponse: function (type, body) {
           console.log('[SumUp Response]', type, body);
+
           if (type === 'success') {
             window.location.href = '/checkout/success.html';
           } else if (type === 'fail' || type === 'error') {
@@ -86,48 +64,7 @@
         }
       });
     }
-
-    // Carrega o resumo do pedido usando localStorage
-    function loadSummary() {
-      const summaryList = document.getElementById('summary-items-list');
-      const totalEl = document.getElementById('summary-total');
-      const subtotalEl = document.getElementById('summary-subtotal');
-
-      const cartData = localStorage.getItem('checkout_cart');
-      const total = localStorage.getItem('checkout_total');
-
-      if (!cartData) {
-        summaryList.innerHTML = '<p>No se encontraron datos del carrito.</p>';
-        return;
-      }
-
-      try {
-        const items = JSON.parse(cartData);
-        summaryList.innerHTML = '';
-
-        items.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'summary-item';
-          div.innerHTML = `
-            <img src="${item.image || 'https://via.placeholder.com/64'}" class="summary-item-img" alt="${item.title}" />
-            <div class="summary-item-details">
-              <span class="summary-item-name">${item.title}</span>
-              <span class="summary-item-qty">Cantidad: ${item.quantity}</span>
-            </div>
-            <div class="summary-item-price">$${item.price}</div>
-          `;
-          summaryList.appendChild(div);
-        });
-
-        subtotalEl.textContent = `$${total || '0'}`;
-        totalEl.textContent = `$${total || '0'}`;
-
-      } catch (e) {
-        summaryList.innerHTML = '<p>Error al cargar el resumen.</p>';
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadSummary);
   </script>
+
 </body>
 </html>
