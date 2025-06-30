@@ -64,7 +64,7 @@ async function initializeStep3() {
 
     isRedirectPrepared = true;
 
-    // Evento ao clicar no botão "Pagar ahora"
+    // ✅ Redireciona para nova aba externa ao clicar em "Pagar ahora"
     nextButton.onclick = () => {
       const selectedPayment = document.querySelector('input[name="pago"]:checked');
       if (!selectedPayment) return;
@@ -72,7 +72,10 @@ async function initializeStep3() {
       if (selectedPayment.value === 'tarjeta') {
         nextButton.disabled = true;
         nextButton.innerHTML = 'Redirigiendo...';
-        window.location.href = `https://iugu-checkout.netlify.app/checkout/iugusumup-payment.html?id=${checkoutId}`;
+
+        const paymentUrl = `https://iugu-checkout.netlify.app/checkout/iugusumup-payment.html?id=${checkoutId}`;
+        window.open(paymentUrl, '_blank'); // NOVO: abre em nova aba
+
       } else {
         transferenciaInfo.scrollIntoView({ behavior: 'smooth' });
         alert('Método de transferencia bancaria aún no está habilitado.');
@@ -80,17 +83,17 @@ async function initializeStep3() {
     };
 
     // Controle de seleção visual entre cartão e transferência
-    document.querySelectorAll('.payment-method-card').forEach(card => {
+    document.querySelectorAll('.payment-method-card, .payment-option').forEach(card => {
       card.addEventListener('click', () => {
         const selected = card.querySelector('input[type="radio"]');
         if (selected) {
           selected.checked = true;
 
-          document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('active'));
+          document.querySelectorAll('.payment-method-card, .payment-option').forEach(c => c.classList.remove('active'));
           card.classList.add('active');
 
           const isCard = selected.value === 'tarjeta';
-          sumupWrapper.style.display = 'none'; // não usado mais no fluxo externo
+          sumupWrapper.style.display = 'none'; // Widget oculto
           transferenciaInfo.style.display = isCard ? 'none' : 'block';
         }
       });
