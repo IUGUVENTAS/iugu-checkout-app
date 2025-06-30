@@ -30,8 +30,7 @@ exports.handler = async (event) => {
     // 3. --- INÍCIO DA MODIFICAÇÃO PARA TESTE ---
     // Token de acesso real para teste controlado.
     // Lembre-se de reverter para process.env.SUMUP_ACCESS_TOKEN antes do deploy final em produção.
-    const accessToken = "sup_sk_NlddVz9PMinF0Z02mChNlTsUO2DqFgnBt";
-    // --- FIM DA MODIFICAÇÃO PARA TESTE ---
+    const accessToken = process.env.SUMUP_ACCESS_TOKEN;
 
     // 4. Endpoint correto da API SumUp
     const sumupApiUrl = 'https://api.sumup.com/v0.1/checkouts';
