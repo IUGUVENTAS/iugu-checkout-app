@@ -2,49 +2,110 @@
 <html lang="es-CL">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pago con tarjeta | CORDIA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="theme-color" content="#5c6ac4" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Pago seguro con tarjeta</title>
 
-  <!-- Fonte recomendada -->
+  <!-- Google Font: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- SDK oficial SumUp -->
+  <!-- Widget SumUp SDK -->
   <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
 
+  <!-- Estilos Embutidos -->
   <style>
-    body {
+    :root {
+      --primary: #5c6ac4;
+      --success: #28c76f;
+      --error: #de3618;
+      --text: #2e3a59;
+      --muted: #8898aa;
+      --bg-light: #f9fafb;
+      --white: #fff;
+      --radius: 16px;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      --font: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #ffffff;
-      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      color: var(--text);
+    }
+
+    .payment-container {
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text);
     }
 
     #sumup-card {
-      min-height: 100vh;
+      min-height: 320px;
     }
 
-    #error-message {
-      color: red;
+    .error-message {
+      margin-top: 1rem;
+      color: var(--error);
       font-weight: 600;
-      text-align: center;
-      padding: 1rem;
+      font-size: 0.95rem;
       display: none;
+    }
+
+    @media (max-width: 480px) {
+      .payment-container {
+        padding: 1.5rem 1.25rem;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
-<body>
 
-  <div id="sumup-card"></div>
-  <div id="error-message"></div>
+<body>
+  <div class="payment-container">
+    <h1>Completa tu pago con tarjeta</h1>
+    <div id="sumup-card"></div>
+    <div id="error-message" class="error-message"></div>
+  </div>
 
   <script>
-    const checkoutId = new URLSearchParams(window.location.search).get('id');
-    const errorMessage = document.getElementById('error-message');
+    document.addEventListener('DOMContentLoaded', function () {
+      const params = new URLSearchParams(window.location.search);
+      const checkoutId = params.get('id');
+      const errorBox = document.getElementById('error-message');
 
-    if (!checkoutId) {
-      errorMessage.innerText = 'Error: falta el ID del checkout.';
-      errorMessage.style.display = 'block';
-    } else {
+      if (!checkoutId) {
+        errorBox.innerText = 'Error: Falta el ID del checkout.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
       SumUpCard.mount({
         id: 'sumup-card',
         checkoutId: checkoutId,
@@ -58,13 +119,12 @@
           if (type === 'success') {
             window.location.href = '/checkout/success.html';
           } else if (type === 'fail' || type === 'error') {
-            errorMessage.innerText = 'El pago fue rechazado o cancelado. Intenta nuevamente.';
-            errorMessage.style.display = 'block';
+            errorBox.innerText = 'El pago fue rechazado o cancelado. Intenta nuevamente.';
+            errorBox.style.display = 'block';
           }
         }
       });
-    }
+    });
   </script>
-
 </body>
 </html>
