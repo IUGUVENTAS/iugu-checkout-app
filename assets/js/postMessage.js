@@ -1,5 +1,3 @@
-// /assets/js/postMessage.js
-
 /**
  * @const {string} MESSAGE_SOURCE_ID
  * Identificador esperado nas mensagens para validar comunicação legítima com a loja.
@@ -59,7 +57,21 @@ function handleParentMessage(data, origin) {
       sendMessageToParent('iframe-loaded', true, origin);
       break;
 
-    // Outros tipos podem ser tratados aqui no futuro
+    case 'redirect-to-checkout':
+      // Pode ser string (URL final) ou objeto completo do pedido
+      if (typeof data.message === 'string') {
+        window.location.href = data.message;
+      } else if (typeof data.message === 'object') {
+        console.log('[IFRAME] Redirecionamento solicitado com dados do pedido:', data.message);
+        // Você pode armazenar os dados no localStorage para usar no success.html
+        localStorage.setItem('checkout_result', JSON.stringify(data.message));
+        window.location.href = '/checkout/success.html';
+      } else {
+        console.warn('[IFRAME] redirect-to-checkout: formato de mensagem desconhecido:', data.message);
+      }
+      break;
+
+    // Outros eventos futuros aqui...
   }
 }
 

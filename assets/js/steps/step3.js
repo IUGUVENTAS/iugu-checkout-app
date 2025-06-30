@@ -1,10 +1,8 @@
-// /assets/js/steps/step3.js
-
-let isSumUpMounted = false;
+let isRedirectPrepared = false;
 
 async function initializeStep3() {
-  if (isSumUpMounted) {
-    console.log('[step3.js] Widget da SumUp já foi montado.');
+  if (isRedirectPrepared) {
+    console.log('[step3.js] Redirecionamento externo já configurado.');
     return;
   }
 
@@ -30,6 +28,9 @@ async function initializeStep3() {
       return;
     }
 
+    let checkoutId = null;
+
+    // Gera checkout antecipadamente para evitar delay no clique
     const response = await fetch('/.netlify/functions/generateCheckout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -50,46 +51,31 @@ async function initializeStep3() {
       throw new Error(`Erro da API (${response.status}): ${responseData.error} | Detalhes: ${responseData.details}`);
     }
 
-    const { checkoutId } = responseData;
+    checkoutId = responseData.checkoutId;
     if (!checkoutId) {
       throw new Error('ID de pagamento válido não foi recebido da API.');
     }
 
-    const sumupCard = SumUpCard.mount({
-      id: 'sumup-card',
-      checkoutId: checkoutId,
-      locale: 'es-CL',
-      onResponse: function (type, body) {
-        console.log('[SumUp Widget Response]', type, body);
-        if (type === 'success') {
-          if (typeof sendMessageToParent === 'function' && typeof currentTrustedOrigin === 'string') {
-            sendMessageToParent('redirect-to-checkout', {
-              status: 'ok',
-              orderId: body.id,
-              transaction_code: body.transaction_code
-            }, currentTrustedOrigin);
-          } else {
-            console.warn('[step3.js] Função postMessage não encontrada ou origem não capturada.');
-          }
-        } else if (type === 'fail') {
-          alert('El pago falló o fue cancelado. Por favor, intenta nuevamente.');
-          nextButton.disabled = false;
-          nextButton.innerHTML = 'Pagar ahora';
-        }
-      }
-    });
+    console.log('[step3.js] checkoutId recebido:', checkoutId);
 
-    isSumUpMounted = true;
+    isRedirectPrepared = true;
 
+    // Evento ao clicar no botão "Pagar ahora"
     nextButton.onclick = () => {
       const selectedPayment = document.querySelector('input[name="pago"]:checked');
-      if (selectedPayment?.value === 'tarjeta') {
+      if (!selectedPayment) return;
+
+      if (selectedPayment.value === 'tarjeta') {
         nextButton.disabled = true;
-        nextButton.innerHTML = 'Procesando...';
-        sumupCard.submit();
+        nextButton.innerHTML = 'Redirigiendo...';
+        window.location.href = `https://iugu-checkout.netlify.app/checkout/iugusumup-payment.html?id=${checkoutId}`;
+      } else {
+        transferenciaInfo.scrollIntoView({ behavior: 'smooth' });
+        alert('Método de transferencia bancaria aún no está habilitado.');
       }
     };
 
+    // Controle de seleção visual entre cartão e transferência
     document.querySelectorAll('.payment-method-card').forEach(card => {
       card.addEventListener('click', () => {
         const selected = card.querySelector('input[type="radio"]');
@@ -100,7 +86,7 @@ async function initializeStep3() {
           card.classList.add('active');
 
           const isCard = selected.value === 'tarjeta';
-          sumupWrapper.style.display = isCard ? 'block' : 'none';
+          sumupWrapper.style.display = 'none'; // não usado mais no fluxo externo
           transferenciaInfo.style.display = isCard ? 'none' : 'block';
         }
       });
