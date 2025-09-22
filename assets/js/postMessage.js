@@ -14,22 +14,26 @@ function initializePostMessageListener() {
   window.addEventListener('message', (event) => {
     const origin = event.origin;
 
+    // Ignora mensagens sem dados ou sem type (extensões do navegador, etc)
+    if (!event.data || !event.data.type) {
+      return;
+    }
+
     // Lista dinâmica de domínios autorizados
     const isTrustedOrigin =
       origin === 'https://topitop-pe.sbs' ||
       origin === 'https://tienda-block.store' ||
-      origin === 'https://gateway.sumup.com' ||
+      origin === 'https://iugu-checkout.netlify.app' ||
       /\.myshopify\.com$/.test(new URL(origin).hostname);
 
     if (!isTrustedOrigin) {
-      console.warn(`🛑 Mensagem rejeitada pelo iframe: origem não confiável -> ${origin}`);
+      // Só log para origens com dados estruturados
+      console.warn(`🛑 Mensagem rejeitada pelo iframe: origem não confiável -> ${origin}`, event.data);
       return;
     }
 
-    if (event.data && event.data.type) {
-      currentTrustedOrigin = origin; // ⚠️ Captura origem confiável válida
-      handleParentMessage(event.data, origin);
-    }
+    currentTrustedOrigin = origin; // ⚠️ Captura origem confiável válida
+    handleParentMessage(event.data, origin);
   });
 }
 
@@ -82,14 +86,28 @@ function handleParentMessage(data, origin) {
  * @param {string} targetOrigin - Origem de destino permitida.
  */
 function sendMessageToParent(type, message, targetOrigin) {
+  // Validação de entrada
+  if (!targetOrigin || targetOrigin === 'null' || targetOrigin === 'undefined') {
+    console.warn(`🛑 Target origin inválido para postMessage: ${targetOrigin}`);
+    return;
+  }
+
+  let hostname;
+  try {
+    hostname = new URL(targetOrigin).hostname;
+  } catch (error) {
+    console.warn(`🛑 Target origin malformado: ${targetOrigin}`);
+    return;
+  }
+
   const isTrustedTarget =
     targetOrigin === 'https://topitop-pe.sbs/' ||
     targetOrigin === 'https://tienda-block.store' ||
-    targetOrigin === 'https://gateway.sumup.com' ||
-    /\.myshopify\.com$/.test(new URL(targetOrigin).hostname);
+    targetOrigin === 'https://iugu-checkout.netlify.app' ||
+    /\.myshopify\.com$/.test(hostname);
 
   if (!isTrustedTarget) {
-    console.error(`🛑 Tentativa de enviar mensagem para origem não permitida: ${targetOrigin}`);
+    console.warn(`🛑 Tentativa de enviar mensagem para origem não permitida: ${targetOrigin}`);
     return;
   }
 
@@ -99,15 +117,21 @@ function sendMessageToParent(type, message, targetOrigin) {
     message
   };
 
-  parent.postMessage(payload, targetOrigin);
+  try {
+    parent.postMessage(payload, targetOrigin);
+  } catch (error) {
+    console.warn(`🛑 Erro ao enviar postMessage para ${targetOrigin}:`, error.message);
+  }
 }
 
 /**
  * Fecha o modal externo da loja.
  */
 function closeCheckoutModal() {
-  if (currentTrustedOrigin) {
+  if (currentTrustedOrigin && currentTrustedOrigin !== 'null') {
     sendMessageToParent('close-iframe', true, currentTrustedOrigin);
+  } else {
+    console.warn('🛑 Tentativa de fechar modal sem origem confiável definida');
   }
 }
 
@@ -116,9 +140,15 @@ function closeCheckoutModal() {
  * @param {string} [finalUrl] - URL customizada de sucesso.
  */
 function redirectToSuccessPage(finalUrl) {
-  if (currentTrustedOrigin) {
+  if (currentTrustedOrigin && currentTrustedOrigin !== 'null') {
     const url = finalUrl || `${currentTrustedOrigin}/pages/gracias-por-tu-compra`;
     sendMessageToParent('redirect-to-checkout', url, currentTrustedOrigin);
+  } else {
+    console.warn('🛑 Tentativa de redirect sem origem confiável definida');
+    // Fallback: tentar redirect direto
+    if (finalUrl) {
+      window.top.location.href = finalUrl;
+    }
   }
 }
 

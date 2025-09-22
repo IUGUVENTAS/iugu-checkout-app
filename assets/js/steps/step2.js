@@ -27,6 +27,50 @@ function initializeStep2() {
             });
         }
     });
+
+    // 🚚 Inicializa funcionalidade de seleção das shipping-cards
+    initializeShippingSelection();
+}
+
+/**
+ * Inicializa a seleção de métodos de entrega
+ */
+function initializeShippingSelection() {
+    const shippingCards = document.querySelectorAll('.shipping-card');
+    
+    // Seleciona o primeiro método por padrão (Express)
+    if (shippingCards.length > 0) {
+        shippingCards[0].classList.add('active');
+        localStorage.setItem('selectedShippingMethod', shippingCards[0].getAttribute('data-method') || 'express');
+    }
+
+    // Adiciona event listeners para seleção
+    shippingCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Remove active de todos os cards
+            shippingCards.forEach(c => c.classList.remove('active'));
+            
+            // Adiciona active ao card clicado
+            card.classList.add('active');
+            
+            // Salva a seleção
+            const method = card.getAttribute('data-method') || 'express';
+            localStorage.setItem('selectedShippingMethod', method);
+            
+            console.log(`[STEP2] Método de entrega selecionado: ${method}`);
+        });
+        
+        // Adiciona suporte a teclado
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+        
+        // Torna focusável
+        card.setAttribute('tabindex', '0');
+    });
 }
 
 /**

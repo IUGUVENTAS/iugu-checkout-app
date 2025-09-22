@@ -72,7 +72,7 @@
 }
 
 /* --- MOBILE / TABLET --- */
-@media (max-width: 991px) {
+@media (max-width: 991px) and (min-width: 769px) {
   html,
   body {
     overflow-y: auto;

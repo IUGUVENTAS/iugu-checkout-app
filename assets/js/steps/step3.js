@@ -55,13 +55,6 @@ async function initializeStep3() {
 
       const method = selectedPayment.value;
 
-      if (method === 'tarjeta') {
-        nextButton.disabled = true;
-        nextButton.innerHTML = 'Redirigiendo...';
-        const paymentUrl = `https://iugu-checkout.netlify.app/checkout/pago-tarjeta.html?id=${cip}`;
-        window.open(paymentUrl, '_blank');
-      }
-
       if (method === 'pagoefectivo') {
         nextButton.disabled = true;
         nextButton.innerHTML = 'Generando CIP...';

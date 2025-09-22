@@ -87,35 +87,29 @@ function saveCurrentStepData() {
 function updateButtonVisibility() {
   const nextButton = document.getElementById('nextButton');
   const backButton = document.getElementById('backButton');
-  const sumupWrapper = document.getElementById('sumup-wrapper');
 
-  if (!nextButton || !backButton || !sumupWrapper) {
-    console.warn('[steps.js] Botões ou sumupWrapper não encontrados.');
+  if (!nextButton || !backButton) {
+    console.warn('[steps.js] Botões não encontrados.');
     return;
   }
-
-  const sumupCardContainer = sumupWrapper.parentElement;
 
   switch (currentStep) {
     case 1:
       backButton.style.display = 'none';
       nextButton.style.display = 'inline-flex';
       nextButton.innerHTML = 'Continuar';
-      if (sumupCardContainer) sumupCardContainer.style.display = 'none';
       break;
 
     case 2:
       backButton.style.display = 'inline-flex';
       nextButton.style.display = 'inline-flex';
       nextButton.innerHTML = 'Continuar';
-      if (sumupCardContainer) sumupCardContainer.style.display = 'none';
       break;
 
     case 3:
       backButton.style.display = 'inline-flex';
       nextButton.style.display = 'inline-flex';
       nextButton.innerHTML = 'Pagar ahora';
-      if (sumupCardContainer) sumupCardContainer.style.display = 'block';
       break;
   }
 }

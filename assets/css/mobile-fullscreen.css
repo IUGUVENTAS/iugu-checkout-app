@@ -1,0 +1,147 @@
+/* --- Mobile Fullscreen Experience --- */
+
+/* Para dispositivos móveis, fazer o iframe cobrir toda a tela */
+@media (max-width: 768px) {
+  
+  /* Reset completo do body e html para aproveitar toda a viewport */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height para mobile */
+    overflow-x: hidden;
+    background-color: var(--body-bg);
+  }
+
+  /* Container principal ocupa toda a tela */
+  .page-container {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Main content sem padding externo */
+  .main-content {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  /* Progress bar ajustada */
+  .progress-bar-container {
+    padding: 1rem 1.25rem 0.5rem 1.25rem;
+    margin: 0;
+    background: var(--body-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  /* Container do checkout ocupando espaço restante */
+  .checkout-flow-container {
+    flex: 1;
+    padding: 0.5rem 1.25rem 6rem 1.25rem;
+    overflow-y: auto;
+    height: calc(100vh - 120px);
+    height: calc(100dvh - 120px);
+  }
+
+  /* Cards com menos padding para aproveitar espaço */
+  .checkout-card {
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Sidebar ajustada */
+  .sidebar {
+    margin-top: 0;
+    padding: 0 1.25rem;
+  }
+
+  /* Summary card otimizada */
+  .summary-card {
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+  }
+
+  /* Footer buttons fixo na parte inferior */
+  .footer-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+  }
+
+  /* Remover espaçamentos desnecessários no Step 1 */
+  #step1-content .checkout-card {
+    padding: 1.25rem;
+  }
+
+  #step1-content .card-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  #step1-content .input-group-stack {
+    gap: 1.25rem;
+  }
+
+  /* Campos de input otimizados para mobile */
+  .checkout-input {
+    height: 52px; /* Ligeiramente maior para mobile */
+    font-size: 16px; /* Evita zoom automático no iOS */
+  }
+
+  /* Grid form responsivo */
+  #step1-content .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Para dispositivos muito pequenos */
+@media (max-width: 375px) {
+  .checkout-flow-container {
+    padding: 0.5rem 1rem 6rem 1rem;
+  }
+  
+  .progress-bar-container {
+    padding: 1rem 1rem 0.5rem 1rem;
+  }
+  
+  .footer-buttons {
+    padding: 1rem;
+  }
+  
+  .checkout-card {
+    padding: 1rem;
+  }
+}
+
+/* Para dispositivos em landscape */
+@media (max-width: 768px) and (orientation: landscape) {
+  .checkout-flow-container {
+    height: calc(100vh - 80px);
+    height: calc(100dvh - 80px);
+  }
+  
+  .progress-bar-container {
+    padding: 0.75rem 1.25rem 0.25rem 1.25rem;
+  }
+}

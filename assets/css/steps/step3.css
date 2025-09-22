@@ -1,52 +1,253 @@
-:root {
-    --white: #ffffff;
-    --primary: #5C6AC4; /* Example primary color, adjust if needed */
-    --title-color: #212529;
-    --text-color: #495057;
-    --text-light: #6c757d;
-    --border-color: #dee2e6;
-    --bg-light-blue: #f5f7ff;
-    /* New colors for highlight */
-    --info-highlight-color: #007bff; /* A blue to highlight important info */
-    --info-sub-highlight-color: #28a745; /* Green for "sin comisiones" etc. */
+/* --- Step 3: Payment - Redesign Moderno --- */
+
+/* Card principal */
+#step3-content .checkout-card.payment-step {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-md);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-color: var(--secondary-gray, #f4f6f9); /* Fallback */
-    color: var(--text-color);
-    line-height: 1.6;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align to top for longer content */
-    min-height: 100vh;
+/* Header com título */
+#step3-content .step-header {
+  margin-bottom: 1.5rem;
+}
+
+#step3-content .step-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--title-color);
+  margin: 0 0 1rem 0;
+}
+
+/* Notice promocional moderno */
+.promo-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+  border: 1px solid #e0e7ff;
+  border-radius: var(--border-radius-sm);
+  padding: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.promo-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.promo-content {
+  flex: 1;
+}
+
+.promo-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0 0 0.15rem 0;
+  line-height: 1.3;
+}
+
+.promo-detail {
+  font-size: 0.8rem;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Payment methods - Design compacto */
+#step3-content .payment-methods {
+  margin-bottom: 1.25rem;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.payment-option.selected {
+  border-color: var(--primary);
+  background-color: rgba(92, 106, 196, 0.03);
+}
+
+.payment-option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: transparent;
+  border-radius: 2px 0 0 2px;
+  transition: background-color 0.2s ease;
+}
+
+.payment-option.selected::before {
+  background-color: var(--primary);
+}
+
+.payment-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  flex: 1;
+}
+
+.payment-logo {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(92, 106, 196, 0.08);
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.payment-logo img {
+  max-width: 28px;
+  max-height: 28px;
+  object-fit: contain;
+}
+
+.payment-info {
+  flex: 1;
+}
+
+.payment-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--title-color);
+  margin: 0 0 0.2rem 0;
+  line-height: 1.2;
+}
+
+.payment-badge {
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 500;
+}
+
+.payment-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Payment details - Grid moderno */
+.payment-details {
+  background-color: #fafbfc;
+  border-radius: var(--border-radius-sm);
+  padding: 1.25rem;
+}
+
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.method-card {
+  background-color: var(--white);
+  border-radius: 6px;
+  padding: 0.875rem;
+  text-align: center;
+  border: 1px solid #f0f0f0;
+}
+
+.method-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.method-card h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--title-color);
+  margin: 0 0 0.25rem 0;
+}
+
+.method-card p {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.payment-logos {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  opacity: 0.9;
+}
+
+/* Mobile responsivo */
+@media (max-width: 767px) {
+  #step3-content .checkout-card.payment-step {
+    padding: 1.25rem;
+  }
+  
+  #step3-content .step-title {
+    font-size: 1.1rem;
+  }
+  
+  .promo-notice {
+    padding: 0.75rem;
+  }
+  
+  .payment-option {
+    padding: 0.875rem;
+  }
+  
+  .payment-header {
+    gap: 0.75rem;
+  }
+  
+  .payment-logo {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .payment-logo img {
+    max-width: 24px;
+    max-height: 24px;
+  }
+  
+  .payment-title {
+    font-size: 0.95rem;
+  }
+  
+  .payment-details {
     padding: 1rem;
-}
-
-/* --- Premium Style for Step 3: Payment --- */
-.checkout-card {
-    max-width: 500px; /* Max width for the entire card */
-    width: 100%;
-}
-
-.payment-step {
-    padding: 2rem;
-    background-color: var(--white);
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-}
-
-/* Step Header */
-.step-header {
-    margin-bottom: 2.25rem;
-}
-
-.step-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--title-color);
-    margin: 0;
+  }
+  
+  .payment-methods-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .method-card {
+    padding: 0.75rem;
+  }
+  
+  .payment-logos {
+    max-width: 280px;
+  }
 }
 
 .step-subtitle {

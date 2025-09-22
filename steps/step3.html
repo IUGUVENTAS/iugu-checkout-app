@@ -1,51 +1,47 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Checkout - Método de Pago</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="checkout-step" id="step3-content">
-        <div class="checkout-card payment-step">
+<div class="checkout-step" id="step3-content">
+    <div class="checkout-card payment-step">
 
-            <div class="step-header">
-                <h2 class="step-title">Método de pago</h2>
-                <p class="step-subtitle">
-                     Debido a la naturaleza promocional de esta oferta, el pago con tarjeta ha sido desactivado temporalmente. Finalizá tu compra usando PagoEfectivo.
-                    <br>
-                    <span class="highlight-info">✔ Confirmación inmediata</span>
-                </p>
-            </div>
-
-            <div class="payment-methods">
-
-                <label class="payment-option active" data-method="pagoefectivo">
-                    <div class="option-content">
-                        <div class="option-info">
-                            <span class="option-title">PagoEfectivo</span>
-                            <div class="option-icons">
-                                <img src="assets/img/icon-pagoefectivo.png" alt="PagoEfectivo" />
-                            </div>
-                        </div>
-                        <input type="radio" name="pago" value="pagoefectivo" checked />
-                    </div>
-                </label>
-            </div>
-
-            <div id="pagoefectivo-info" style="display: block;">
-                <div class="pagoefectivo-box">
-                    <p><strong>Banca Móvil o por Internet</strong> – Paga en BBVA, BCP, Interbank, Scotiabank, BanBif, Caja Arequipa y Banco Pichincha, a través de la opción "Pago de Servicios".</p>
-                    <p><strong>Agentes y Bodegas</strong> – Deposita en Tambo+, Kasnet, Ya Ganaste, Red Digital, Niubiz, Western Union, MoneyGram, Disashop, Cellpower y más.</p>
-                    <img src="assets/img/payment-pago-efectivo-370px.png" alt="PagoEfectivo - Bancos y Agentes" class="pagoefectivo-logos" />
+        <div class="step-header">
+            <h2 class="step-title">Método de pago</h2>
+            <div class="promo-notice">
+                <div class="promo-icon">🎉</div>
+                <div class="promo-content">
+                    <p class="promo-text">Oferta especial activa</p>
+                    <p class="promo-detail">Pago únicamente por PagoEfectivo para esta promoción</p>
                 </div>
             </div>
+        </div>
 
+        <div class="payment-methods">
+            <div class="payment-option selected" data-method="pagoefectivo">
+                <div class="payment-header">
+                    <div class="payment-logo">
+                        <img src="assets/img/icon-pagoefectivo.png" alt="PagoEfectivo" />
+                    </div>
+                    <div class="payment-info">
+                        <h3 class="payment-title">PagoEfectivo</h3>
+                        <span class="payment-badge">✓ Confirmación inmediata</span>
+                    </div>
+                </div>
+                <input type="radio" name="pago" value="pagoefectivo" checked />
             </div>
-    </div>
-</body>
-</html>
+        </div>
+
+        <div class="payment-details">
+            <div class="payment-methods-grid">
+                <div class="method-card">
+                    <div class="method-icon">🏦</div>
+                    <h4>Banca Digital</h4>
+                    <p>BBVA, BCP, Interbank, Scotiabank y más</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-icon">🏪</div>
+                    <h4>Agentes</h4>
+                    <p>Tambo+, Kasnet, Western Union y más</p>
+                </div>
+            </div>
+            <img src="assets/img/payment-pago-efectivo-370px.png" alt="PagoEfectivo - Bancos y Agentes" class="payment-logos" />
+        </div>
+
+        </div>
+</div>
