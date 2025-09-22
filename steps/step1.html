@@ -1,7 +1,7 @@
 <div class="checkout-step" id="step1-content">
   <div class="checkout-card">
 
-    <!-- Cabeçalho com ícone -->
+    <!-- Header moderno -->
     <div class="card-header">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -10,12 +10,11 @@
       <h2 class="card-title">Datos de identificación</h2>
     </div>
 
-    <!-- Campos de entrada -->
+    <!-- Formulário moderno -->
     <div class="input-group-stack">
 
-      <!-- Email -->
+      <!-- Email com floating label -->
       <div class="input-wrapper form-group" id="email-wrapper">
-        <label class="input-label" for="email">Correo electrónico</label>
         <input
           id="email"
           type="email"
@@ -26,18 +25,18 @@
           aria-describedby="email-error"
           required
         />
+        <label class="input-label" for="email">Correo electrónico</label>
         <span class="validation-icon">
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
         </span>
         <div class="error-message" id="email-error" style="display: none;">Correo inválido</div>
       </div>
 
-      <!-- Nome + Documento lado a lado -->
+      <!-- Grid para Nome e Documento -->
       <div class="form-grid">
-
-        <!-- Nome -->
+        
+        <!-- Nome com floating label -->
         <div class="input-wrapper form-group" id="name-wrapper">
-          <label class="input-label" for="name">Nombre y Apellido</label>
           <input
             id="name"
             type="text"
@@ -48,15 +47,15 @@
             aria-describedby="name-error"
             required
           />
+          <label class="input-label" for="name">Nombre y Apellido</label>
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
           <div class="error-message" id="name-error" style="display: none;">Este campo es obligatorio</div>
         </div>
 
-        <!-- Documento (DNI o RUC) -->
+        <!-- Documento com floating label -->
         <div class="input-wrapper form-group" id="doc-wrapper">
-          <label class="input-label" for="document">DNI o RUC</label>
           <input
             id="document"
             type="text"
@@ -68,6 +67,7 @@
             maxlength="11"
             required
           />
+          <label class="input-label" for="document">DNI o RUC</label>
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
@@ -75,9 +75,8 @@
         </div>
       </div>
 
-      <!-- Teléfono -->
+      <!-- Telefone com grupo moderno -->
       <div class="input-wrapper form-group" id="phone-wrapper">
-        <label class="input-label" for="phone">Teléfono</label>
         <div class="input-group">
           <span class="input-group-prefix">+51</span>
           <input
@@ -91,6 +90,7 @@
             maxlength="9"
             required
           />
+          <label class="input-label" for="phone">Teléfono</label>
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
