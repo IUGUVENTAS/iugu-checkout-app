@@ -51,7 +51,11 @@ function handleParentMessage(data, origin) {
   switch (data.type) {
     case 'receive-cart-info':
       console.log('[IFRAME] Dados do carrinho recebidos:', data.message);
-
+      
+      // Limpa dados anteriores sempre que receber novos dados do carrinho
+      // Isso garante que não haja conflito entre sessões diferentes
+      clearCheckoutData();
+      
       if (typeof populateSummary === 'function') {
         populateSummary(data.message);
       }
@@ -128,11 +132,47 @@ function sendMessageToParent(type, message, targetOrigin) {
  * Fecha o modal externo da loja.
  */
 function closeCheckoutModal() {
+  console.log('[IFRAME] 🚪 Fechando modal do checkout...');
+  
+  // Limpa os dados antes de fechar
+  clearCheckoutData();
+  
   if (currentTrustedOrigin && currentTrustedOrigin !== 'null') {
     sendMessageToParent('close-iframe', true, currentTrustedOrigin);
   } else {
     console.warn('🛑 Tentativa de fechar modal sem origem confiável definida');
   }
+}
+
+/**
+ * Limpa todos os dados do checkout armazenados localmente.
+ * Impede que o cliente reutilize dados de sessões anteriores.
+ */
+function clearCheckoutData() {
+  console.log('[IFRAME] 🧹 Limpando dados do checkout...');
+  
+  // Lista completa de chaves relacionadas ao checkout
+  const checkoutKeys = [
+    'checkout_cart',
+    'checkout_direccion', 
+    'checkout_total',
+    'checkout_result',
+    'selectedShippingMethod',
+    'departamento',
+    'provincia', 
+    'distrito',
+    'direccion'
+  ];
+  
+  // Remove cada chave do localStorage
+  checkoutKeys.forEach(key => {
+    if (localStorage.getItem(key)) {
+      localStorage.removeItem(key);
+      console.log(`[IFRAME] ✅ Removido: ${key}`);
+    }
+  });
+  
+  console.log('[IFRAME] 🎯 Todos os dados do checkout foram limpos!');
 }
 
 /**
@@ -152,7 +192,62 @@ function redirectToSuccessPage(finalUrl) {
   }
 }
 
+/**
+ * Configura listeners para detectar quando o usuário sai do checkout.
+ * Limpa os dados automaticamente para forçar nova adição do produto.
+ */
+function setupExitDetection() {
+  // Detecta quando a janela perde o foco (usuário muda de aba/janela)
+  window.addEventListener('blur', () => {
+    console.log('[IFRAME] 👁️ Janela perdeu foco - limpando dados...');
+    clearCheckoutData();
+  });
+  
+  // Detecta quando a página fica escondida (aba inativa)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      console.log('[IFRAME] 🙈 Página ficou oculta - limpando dados...');
+      clearCheckoutData();
+    }
+  });
+  
+  // Detecta tentativas de sair da página (voltar, fechar, navegar)
+  window.addEventListener('beforeunload', (event) => {
+    console.log('[IFRAME] 🚪 Usuário saindo da página - limpando dados...');
+    clearCheckoutData();
+    
+    // Não mostra confirmação, apenas limpa os dados
+    // event.preventDefault(); // Removido para não interferir na UX
+  });
+  
+  // Detecta quando o iframe perde foco (clique fora do iframe)
+  window.addEventListener('pagehide', () => {
+    console.log('[IFRAME] 📄 Página sendo escondida - limpando dados...');
+    clearCheckoutData();
+  });
+  
+  // Listener adicional para mudanças de hash/estado
+  window.addEventListener('popstate', () => {
+    console.log('[IFRAME] ⬅️ Navegação detectada - limpando dados...');
+    clearCheckoutData();
+  });
+}
+
 // --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('[IFRAME] 🚀 Inicializando checkout...');
+  
+  // Limpa dados residuais ao carregar a página
+  // Isso garante um estado limpo para cada nova sessão
+  clearCheckoutData();
+  
   initializePostMessageListener();
+  setupExitDetection();
+  
+  console.log('[IFRAME] ✅ Sistema de limpeza automática ativado!');
 });
+
+// --- EXPOSIÇÃO GLOBAL ---
+// Torna a função de limpeza disponível globalmente
+window.clearCheckoutData = clearCheckoutData;
+window.closeCheckoutModal = closeCheckoutModal;
