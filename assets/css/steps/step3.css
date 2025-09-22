@@ -1,136 +1,252 @@
-/* --- Estilo Premium para Etapa 3: Pagamento --- */
-
-.payment-step {
-  padding: 2rem;
-  background-color: var(--white);
-  border-radius: 16px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+:root {
+    --white: #ffffff;
+    --primary: #5C6AC4; /* Example primary color, adjust if needed */
+    --title-color: #212529;
+    --text-color: #495057;
+    --text-light: #6c757d;
+    --border-color: #dee2e6;
+    --bg-light-blue: #f5f7ff;
+    /* New colors for highlight */
+    --info-highlight-color: #007bff; /* A blue to highlight important info */
+    --info-sub-highlight-color: #28a745; /* Green for "sin comisiones" etc. */
 }
 
-/* Cabeçalho da etapa */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: var(--secondary-gray, #f4f6f9); /* Fallback */
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for longer content */
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* --- Premium Style for Step 3: Payment --- */
+.checkout-card {
+    max-width: 500px; /* Max width for the entire card */
+    width: 100%;
+}
+
+.payment-step {
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Step Header */
 .step-header {
-  margin-bottom: 2.25rem;
+    margin-bottom: 2.25rem;
 }
 
 .step-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--title-color);
-  margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--title-color);
+    margin: 0;
 }
 
 .step-subtitle {
-  font-size: 1rem;
-  color: var(--text-light);
-  margin-top: 0.4rem;
-  line-height: 1.5;
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-top: 0.4rem;
+    line-height: 1.5;
 }
 
-/* Lista de métodos de pagamento */
+/* Styling for the bold parts within step-subtitle */
+.step-subtitle strong {
+    color: var(--title-color); /* Darker for emphasis */
+    font-weight: 600;
+}
+
+/* Styling for the new highlight info line */
+.step-subtitle .highlight-info {
+    display: block; /* Ensures it starts on a new line */
+    margin-top: 0.8rem; /* Space from the main text */
+    font-size: 0.85rem; /* Slightly smaller font */
+    color: var(--info-sub-highlight-color); /* A subtle green for positive attributes */
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left; /* Aligns checks to left in multiline */
+    /* Optional: if you want a subtle background for this line only */
+    /* background-color: rgba(232, 247, 237, 0.5); */
+    /* padding: 0.4rem 0.6rem; */
+    /* border-radius: 6px; */
+}
+
+
+/* --- Removed .payment-restriction-box related styles --- */
+/* The entire .payment-restriction-box block and its children styles are removed */
+
+
+/* List of payment methods */
 .payment-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-/* Cartão visual de opção de pagamento */
+/* Visual payment option card */
 .payment-option {
-  display: block;
-  background: var(--white);
-  border: 1.5px solid var(--border-color);
-  border-radius: 14px;
-  padding: 1.25rem 1.5rem;
-  transition: all 0.2s ease;
-  cursor: pointer;
+    display: block;
+    background: var(--white);
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .payment-option:hover {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.08);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.08);
 }
 
 .payment-option.active {
-  border-color: var(--primary);
-  background-color: #f5f7ff;
-  box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.15);
+    border-color: var(--primary);
+    background-color: var(--bg-light-blue);
+    box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.15);
 }
 
-/* Layout interno da opção */
+/* Inner option layout */
 .option-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
 }
 
 .option-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .option-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--title-color);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--title-color);
 }
 
+/* Reduced PagoEfectivo icon block */
 .option-icons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    height: 24px;
 }
 
 .option-icons img {
-  height: 24px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.85;
+    height: 20px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.85;
 }
 
-.payment-option[data-method="transferencia"] .option-icons img {
-  height: 20px;
+.payment-option[data-method="pagoefectivo"] .option-icons img {
+    height: 22px;
+    max-height: 22px;
 }
 
-/* Input de radio: personalizado */
+/* Radio input: custom style */
 .payment-option input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--primary);
-  transform: scale(1.2);
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+    transform: scale(1.2);
 }
 
-/* Widget da SumUp */
-#sumup-wrapper {
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
+/* PagoEfectivo instructions */
+#pagoefectivo-info {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f9fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
-/* Placeholder da transferência */
-#transferencia-info {
-  margin-top: 2rem;
-  padding: 1.25rem 1.5rem;
-  background-color: #f9fafc;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  font-size: 0.95rem;
-  color: var(--text-color);
-  line-height: 1.6;
+#pagoefectivo-info p {
+    margin-bottom: 1rem;
 }
 
-/* Ajustes para mobile */
+#pagoefectivo-info strong {
+    color: var(--title-color);
+}
+
+.pagoefectivo-logos {
+    margin-top: 1rem;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
+
+/* Mobile adjustments */
 @media (max-width: 767px) {
-  .payment-step {
-    padding: 1.5rem 1rem;
-  }
+    body {
+        padding: 0;
+    }
+    .payment-step {
+        padding: 1.5rem 1rem;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
-  .option-content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    /* Mobile specific adjustments for step-subtitle */
+    .step-subtitle {
+        font-size: 0.9rem; /* Smaller font for subtitle in mobile */
+        line-height: 1.4;
+    }
 
-  .option-icons {
-    margin-top: 0.25rem;
-  }
+    .step-subtitle .highlight-info {
+        font-size: 0.75rem; /* Even smaller for highlight info in mobile */
+        margin-top: 0.6rem;
+        text-align: left; /* Keep text aligned left */
+    }
+
+    /* Option for PagoEfectivo in Mobile */
+    .option-content {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .option-info {
+        flex-grow: 1;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .option-title {
+        font-size: 0.95rem;
+    }
+
+    .option-icons {
+        margin-top: 0;
+    }
+
+    .payment-option[data-method="pagoefectivo"] .option-icons img {
+        height: 20px;
+        max-height: 20px;
+    }
+
+    .pagoefectivo-logos {
+        margin-top: 1rem;
+    }
+}
+
+/* Placeholder for fixed button, if any, to ensure content scrolls above it */
+.fixed-button-placeholder {
+    height: 80px; /* Adjust based on your button's actual height */
+    width: 100%;
 }

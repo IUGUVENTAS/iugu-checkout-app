@@ -1,60 +1,51 @@
-<div class="checkout-step" id="step3-content">
-  <div class="checkout-card payment-step">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout - Método de Pago</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="checkout-step" id="step3-content">
+        <div class="checkout-card payment-step">
 
-    <!-- Cabeçalho -->
-    <div class="step-header">
-      <h2 class="step-title">Método de pago</h2>
-      <p class="step-subtitle">
-        Elige cómo quieres pagar tu pedido. Tus datos están cifrados y protegidos.
-      </p>
-    </div>
-
-    <!-- Métodos de pago -->
-    <div class="payment-methods">
-
-      <!-- Opción: Tarjeta de Crédito/Débito -->
-      <label class="payment-option active" data-method="tarjeta">
-        <div class="option-content">
-          <div class="option-info">
-            <span class="option-title">Tarjeta de Crédito o Débito</span>
-            <div class="option-icons">
-              <img src="assets/img/Visa.svg" alt="Visa" />
-              <img src="assets/img/Mastercard.svg" alt="Mastercard" />
-              <img src="assets/img/American Express.svg" alt="American Express" />
+            <div class="step-header">
+                <h2 class="step-title">Método de pago</h2>
+                <p class="step-subtitle">
+                     Debido a la naturaleza promocional de esta oferta, el pago con tarjeta ha sido desactivado temporalmente. Finalizá tu compra usando PagoEfectivo.
+                    <br>
+                    <span class="highlight-info">✔ Confirmación inmediata</span>
+                </p>
             </div>
-          </div>
-          <input type="radio" name="pago" value="tarjeta" checked />
-        </div>
-      </label>
 
-      <!-- Opción: Transferencia Bancaria -->
-      <label class="payment-option" data-method="transferencia">
-        <div class="option-content">
-          <div class="option-info">
-            <span class="option-title">Transferencia Bancaria</span>
-            <div class="option-icons">
-              <img src="assets/img/Khipu.svg" alt="Khipu" />
-              <img src="assets/img/Fintoc.svg" alt="Fintoc" />
+            <div class="payment-methods">
+
+                <label class="payment-option active" data-method="pagoefectivo">
+                    <div class="option-content">
+                        <div class="option-info">
+                            <span class="option-title">PagoEfectivo</span>
+                            <div class="option-icons">
+                                <img src="assets/img/icon-pagoefectivo.png" alt="PagoEfectivo" />
+                            </div>
+                        </div>
+                        <input type="radio" name="pago" value="pagoefectivo" checked />
+                    </div>
+                </label>
             </div>
-          </div>
-          <input type="radio" name="pago" value="transferencia" />
-        </div>
-      </label>
 
+            <div id="pagoefectivo-info" style="display: block;">
+                <div class="pagoefectivo-box">
+                    <p><strong>Banca Móvil o por Internet</strong> – Paga en BBVA, BCP, Interbank, Scotiabank, BanBif, Caja Arequipa y Banco Pichincha, a través de la opción "Pago de Servicios".</p>
+                    <p><strong>Agentes y Bodegas</strong> – Deposita en Tambo+, Kasnet, Ya Ganaste, Red Digital, Niubiz, Western Union, MoneyGram, Disashop, Cellpower y más.</p>
+                    <img src="assets/img/payment-pago-efectivo-370px.png" alt="PagoEfectivo - Bancos y Agentes" class="pagoefectivo-logos" />
+                </div>
+            </div>
+
+            </div>
     </div>
-
-    <!-- SumUp Widget -->
-    <div id="sumup-wrapper">
-      <div id="sumup-card" style="min-height: 320px;"></div>
-    </div>
-
-    <!-- Placeholder: Transferencia Info -->
-    <div id="transferencia-info" style="display: none;">
-      <p>
-        Pronto habilitaremos transferencias bancarias vía
-        <strong>Khipu</strong> o <strong>Fintoc</strong>.
-      </p>
-    </div>
-
-  </div>
-</div>
+</body>
+</html>

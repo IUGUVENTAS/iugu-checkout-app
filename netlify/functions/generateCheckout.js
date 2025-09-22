@@ -1,10 +1,8 @@
-const axios = require('axios');
-
 exports.handler = async (event) => {
-  console.log('[generateCheckout] Função iniciada.');
+  console.log('[generateCheckout] Função simulada iniciada.');
 
   try {
-    // 1. Validação do método HTTP
+    // 1. Apenas POST é permitido
     if (event.httpMethod !== 'POST') {
       return {
         statusCode: 405,
@@ -13,64 +11,47 @@ exports.handler = async (event) => {
       };
     }
 
-    // 2. Validação e parse do corpo da requisição
-    const body = JSON.parse(event.body);
-    const { email, total, pedidoId } = body;
-
-    console.log('[generateCheckout] Payload recebido:', body);
-
-    if (!email || !total || !pedidoId) {
-      console.error('[generateCheckout] Validação falhou: Dados obrigatórios ausentes.');
+    // 2. Tenta fazer parse do body recebido
+    let body;
+    try {
+      body = JSON.parse(event.body);
+    } catch (e) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Dados insuficientes. Os campos email, total e pedidoId são obrigatórios.' })
+        body: JSON.stringify({ error: 'Corpo da requisição inválido (JSON esperado).' })
       };
     }
 
-    // 3. --- INÍCIO DA MODIFICAÇÃO PARA TESTE ---
-    // Token de acesso real para teste controlado.
-    // Lembre-se de reverter para process.env.SUMUP_ACCESS_TOKEN antes do deploy final em produção.
-    const accessToken = process.env.SUMUP_ACCESS_TOKEN;
+    const { email, total, pedidoId } = body;
 
-    // 4. Endpoint correto da API SumUp
-    const sumupApiUrl = 'https://api.sumup.com/v0.1/checkouts';
-    
-    console.log(`[generateCheckout] Enviando requisição para SumUp: ${sumupApiUrl}`);
+    // 3. Validação básica dos campos obrigatórios
+    if (!email || !total || !pedidoId) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: 'Campos obrigatórios ausentes: email, total ou pedidoId.'
+        })
+      };
+    }
 
-    const response = await axios.post(sumupApiUrl, {
-      checkout_reference: pedidoId,
-      amount: total,
-      currency: 'CLP',
-      pay_to_email: 'contacto@cordia.cl',
-      description: `Compra em Cordia.cl - Pedido ${pedidoId}`,
-      return_url: 'https://cordia.cl/gracias'
-    }, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
-      }
-    });
+    // 4. Simulação da geração de um ID de checkout
+    const fakeCheckoutId = `pgo-${pedidoId}-${Date.now()}`;
+    console.log('[generateCheckout] Retornando checkout simulado:', fakeCheckoutId);
 
-    console.log('[generateCheckout] Sucesso! Checkout ID gerado:', response.data.id);
-    
-    // 5. Retorno de sucesso com o checkoutId
+    // 5. Retorno de sucesso
     return {
       statusCode: 200,
-      body: JSON.stringify({ checkoutId: response.data.id })
+      body: JSON.stringify({ checkoutId: fakeCheckoutId })
     };
 
   } catch (err) {
-    // 6. Bloco CATCH robusto: Garante uma resposta JSON válida em QUALQUER erro
-    console.error('[generateCheckout] ERRO CRÍTICO CAPTURADO:', err);
-    
-    const statusCode = err.response?.status || 500;
-    const errorMessage = err.response?.data?.error_message || err.message || 'Ocorreu um erro desconhecido na função.';
-    
+    console.error('[generateCheckout] Erro inesperado:', err);
+
     return {
-      statusCode: statusCode,
-      body: JSON.stringify({ 
-        error: 'Falha ao criar o checkout na SumUp.',
-        details: errorMessage
+      statusCode: 500,
+      body: JSON.stringify({
+        error: 'Erro interno ao gerar o checkout.',
+        details: err.message
       })
     };
   }

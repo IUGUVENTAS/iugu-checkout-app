@@ -1,13 +1,13 @@
 /**
  * assets/js/steps/step2.js
- * Inicializa os "ouvintes" de eventos para a Etapa 2, usando a validação simples e preenchimento automático.
+ * Inicializa os ouvintes da Etapa 2 (Entrega) com campos e lógica padrão do Peru.
  */
 function initializeStep2() {
-    console.log('Etapa 2 (Entrega) inicializada com validação simples.');
+    console.log('Etapa 2 (Entrega Perú) inicializada.');
 
-    const fieldsToValidate = ['region', 'comuna', 'calle', 'numero'];
+    const fieldsToValidate = ['departamento', 'provincia', 'distrito', 'direccion'];
 
-    // 🔁 Preenche campos se valores já estiverem salvos no localStorage
+    // 🔁 Preenche campos com valores salvos
     fieldsToValidate.forEach(fieldId => {
         const input = document.getElementById(fieldId);
         const savedValue = localStorage.getItem(fieldId);
@@ -17,7 +17,7 @@ function initializeStep2() {
         }
     });
 
-    // 📌 Ativa validação contínua
+    // 📌 Validação contínua
     fieldsToValidate.forEach(fieldId => {
         const input = document.getElementById(fieldId);
         if (input) {
@@ -31,19 +31,18 @@ function initializeStep2() {
 
 /**
  * Salva os dados de entrega da Etapa 2 no localStorage.
- * Deve ser chamada após validação.
  */
 function saveClientDataStep2() {
-    const region = document.getElementById('region')?.value.trim();
-    const comuna = document.getElementById('comuna')?.value.trim();
-    const calle = document.getElementById('calle')?.value.trim();
-    const numero = document.getElementById('numero')?.value.trim();
+    const departamento = document.getElementById('departamento')?.value.trim();
+    const provincia = document.getElementById('provincia')?.value.trim();
+    const distrito = document.getElementById('distrito')?.value.trim();
+    const direccion = document.getElementById('direccion')?.value.trim();
 
-    localStorage.setItem('region', region);
-    localStorage.setItem('comuna', comuna);
-    localStorage.setItem('calle', calle);
-    localStorage.setItem('numero', numero);
+    localStorage.setItem('departamento', departamento);
+    localStorage.setItem('provincia', provincia);
+    localStorage.setItem('distrito', distrito);
+    localStorage.setItem('direccion', direccion);
 
-    const direccion = { region, comuna, calle, numero };
-    localStorage.setItem('checkout_direccion', JSON.stringify(direccion));
+    const envio = { departamento, provincia, distrito, direccion };
+    localStorage.setItem('checkout_direccion', JSON.stringify(envio));
 }

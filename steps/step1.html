@@ -10,11 +10,11 @@
       <h2 class="card-title">Datos de identificación</h2>
     </div>
 
-    <!-- Grupo de campos empilhados -->
+    <!-- Campos de entrada -->
     <div class="input-group-stack">
 
-      <!-- E-mail -->
-      <div class="input-wrapper" id="email-wrapper">
+      <!-- Email -->
+      <div class="input-wrapper form-group" id="email-wrapper">
         <label class="input-label" for="email">Correo electrónico</label>
         <input
           id="email"
@@ -23,19 +23,20 @@
           autocomplete="email"
           class="checkout-input"
           placeholder="ejemplo@correo.com"
+          aria-describedby="email-error"
           required
         />
         <span class="validation-icon">
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
         </span>
-        <div class="error-message" style="display: none;">Correo inválido</div>
+        <div class="error-message" id="email-error" style="display: none;">Correo inválido</div>
       </div>
 
-      <!-- Nome e RUT lado a lado -->
+      <!-- Nome + Documento lado a lado -->
       <div class="form-grid">
 
         <!-- Nome -->
-        <div class="input-wrapper" id="name-wrapper">
+        <div class="input-wrapper form-group" id="name-wrapper">
           <label class="input-label" for="name">Nombre y Apellido</label>
           <input
             id="name"
@@ -44,52 +45,57 @@
             autocomplete="name"
             class="checkout-input"
             placeholder="Tu nombre completo"
+            aria-describedby="name-error"
             required
           />
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
-          <div class="error-message" style="display: none;">Este campo es obligatorio</div>
+          <div class="error-message" id="name-error" style="display: none;">Este campo es obligatorio</div>
         </div>
 
-        <!-- RUT -->
-        <div class="input-wrapper" id="rut-wrapper">
-          <label class="input-label" for="rut">RUT</label>
+        <!-- Documento (DNI o RUC) -->
+        <div class="input-wrapper form-group" id="doc-wrapper">
+          <label class="input-label" for="document">DNI o RUC</label>
           <input
-            id="rut"
+            id="document"
             type="text"
-            inputmode="text"
+            inputmode="numeric"
             autocomplete="off"
             class="checkout-input"
-            placeholder="12.345.678-9"
+            placeholder="12345678 o 12345678901"
+            aria-describedby="document-error"
+            maxlength="11"
             required
           />
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
-          <div class="error-message" style="display: none;">RUT inválido</div>
+          <div class="error-message" id="document-error" style="display: none;">Documento inválido</div>
         </div>
       </div>
 
-      <!-- Telefone com prefixo -->
-      <div class="input-wrapper" id="phone-wrapper">
+      <!-- Teléfono -->
+      <div class="input-wrapper form-group" id="phone-wrapper">
         <label class="input-label" for="phone">Teléfono</label>
         <div class="input-group">
-          <span class="input-group-prefix">+56</span>
+          <span class="input-group-prefix">+51</span>
           <input
             id="phone"
             type="tel"
             inputmode="numeric"
             autocomplete="tel"
             class="checkout-input"
-            placeholder="9 1234 5678"
+            placeholder="912 345 678"
+            aria-describedby="phone-error"
+            maxlength="9"
             required
           />
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
         </div>
-        <div class="error-message" style="display: none;">Teléfono inválido</div>
+        <div class="error-message" id="phone-error" style="display: none;">Teléfono inválido</div>
       </div>
 
     </div>

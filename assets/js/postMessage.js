@@ -16,7 +16,7 @@ function initializePostMessageListener() {
 
     // Lista dinâmica de domínios autorizados
     const isTrustedOrigin =
-      origin === 'https://cordia.cl' ||
+      origin === 'https://topitop-pe.sbs' ||
       origin === 'https://tienda-block.store' ||
       origin === 'https://gateway.sumup.com' ||
       /\.myshopify\.com$/.test(new URL(origin).hostname);
@@ -83,7 +83,7 @@ function handleParentMessage(data, origin) {
  */
 function sendMessageToParent(type, message, targetOrigin) {
   const isTrustedTarget =
-    targetOrigin === 'https://cordia.cl' ||
+    targetOrigin === 'https://topitop-pe.sbs/' ||
     targetOrigin === 'https://tienda-block.store' ||
     targetOrigin === 'https://gateway.sumup.com' ||
     /\.myshopify\.com$/.test(new URL(targetOrigin).hostname);

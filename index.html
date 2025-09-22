@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="es-CL">
 <head>
-
   <!-- Google Tag Manager -->
-<script>
-  (function(w,d,s,l,i){
-    w[l]=w[l]||[];
-    w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-    var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-    j.async=true;
-    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-    f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WXHL78QK');
-</script>
-<!-- End Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WXHL78QK');
+  </script>
+  <!-- End Google Tag Manager -->
 
-  <!-- Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#5c6ac4" />
-
-  <!-- Título -->
   <title>Finaliza tu Compra | CORDIA Chile</title>
 
   <!-- Fonts -->
@@ -46,11 +40,11 @@
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-<noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXHL78QK"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXHL78QK"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <div class="page-container">
     <main class="main-content">
@@ -60,8 +54,6 @@
 
       <!-- Sidebar de Resumen -->
       <aside class="sidebar">
-
-        <!-- Cabeçalho Colapsável (mobile) -->
         <div class="summary-collapsible-header" id="summaryHeader">
           <span class="text">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -75,22 +67,18 @@
           <span class="total-price-preview"></span>
         </div>
 
-        <!-- Cartão Resumo -->
         <div class="summary-card" id="summaryCollapsible">
           <h2 class="summary-title">Resumen de tu compra</h2>
 
-          <!-- Lista de Itens -->
           <div class="summary-items-list" id="summary-items-list">
             <p>Cargando tu carrito...</p>
           </div>
 
-          <!-- Campo de Cupón -->
           <form class="coupon-form">
             <input type="text" class="checkout-input" placeholder="Cupón de descuento" />
             <button type="button" class="coupon-btn">Aplicar</button>
           </form>
 
-          <!-- Totais -->
           <div class="summary-totals">
             <div class="summary-line">
               <span class="label">Subtotal</span>
@@ -108,11 +96,9 @@
         </div>
       </aside>
 
-      <!-- Container de Etapas -->
+      <!-- Etapas -->
       <div class="checkout-flow-container">
         <form id="checkoutForm" novalidate></form>
-
-        <!-- Botões de navegação -->
         <div class="footer-buttons">
           <button type="button" class="btn btn-secondary" id="backButton" style="display: none;">Volver</button>
           <button type="button" class="btn btn-primary" id="nextButton">Continuar</button>
@@ -122,22 +108,21 @@
     </main>
   </div>
 
-  <!-- SDK SumUp (para pagamento com cartão) -->
-  <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js" async></script>
-
   <!-- JS Global -->
   <script src="assets/js/utils.js" defer></script>
   <script src="assets/js/injectSteps.js" defer></script>
-  <script src="assets/js/steps.js" defer></script>
   <script src="assets/js/summary.js" defer></script>
   <script src="assets/js/postMessage.js" defer></script>
 
-  <!-- JS por Etapa -->
+  <!-- JS por Etapas -->
   <script src="assets/js/steps/step1.js" defer></script>
   <script src="assets/js/steps/step2.js" defer></script>
   <script src="assets/js/steps/step3.js" defer></script>
 
-  <!-- Inicialização -->
+  <!-- JS do controle de steps -->
+  <script src="assets/js/steps.js" defer></script>
+
+  <!-- JS Principal -->
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>

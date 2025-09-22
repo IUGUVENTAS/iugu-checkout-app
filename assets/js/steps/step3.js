@@ -9,98 +9,87 @@ async function initializeStep3() {
   console.log('[step3.js] Etapa 3 (Pagamento) inicializada.');
 
   const nextButton = document.getElementById('nextButton');
-  const sumupWrapper = document.getElementById('sumup-wrapper');
-  const transferenciaInfo = document.getElementById('transferencia-info');
+  const pagoefectivoInfo = document.getElementById('pagoefectivo-info');
 
-  if (!nextButton || !sumupWrapper || !transferenciaInfo) {
-    console.error('[step3.js] Elementos da Etapa 3 não encontrados no DOM.');
+  if (!nextButton) {
+    console.error('[step3.js] Botão "nextButton" não encontrado.');
     return;
   }
 
-  // ✅ Garante que o botão "Pagar ahora" esteja visível e com texto correto
   nextButton.style.display = 'inline-flex';
   nextButton.innerHTML = 'Pagar ahora';
 
   try {
-    const rawAmount = localStorage.getItem('checkout_total');
-    const email = localStorage.getItem('email');
-    const amount = parseInt(rawAmount, 10);
-    const pedidoId = 'CORDIA-' + Date.now();
-
-    if (isNaN(amount) || !email) {
-      alert('Faltam dados do pedido para processar o pago. Por favor, recarregue a página.');
-      return;
-    }
-
-    let checkoutId = null;
-
-    // Gera checkout antecipadamente para evitar delay no clique
-    const response = await fetch('/.netlify/functions/generateCheckout', {
+    // 🔄 Consulta para obter CIP e valor do Google Sheets
+    const response = await fetch('/.netlify/functions/getCIP', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ total: amount, email, pedidoId })
+      body: JSON.stringify({})
     });
 
     const rawResponse = await response.text();
-    console.log('[step3.js] Resposta bruta do backend:', rawResponse);
+    console.log('[step3.js] Respuesta cruda del backend:', rawResponse);
 
     let responseData;
     try {
       responseData = JSON.parse(rawResponse);
     } catch (e) {
-      throw new Error('Resposta inválida recebida do backend. Conteúdo:\n\n' + rawResponse);
+      throw new Error('Respuesta inválida:\n\n' + rawResponse);
     }
 
     if (!response.ok) {
-      throw new Error(`Erro da API (${response.status}): ${responseData.error} | Detalhes: ${responseData.details}`);
+      throw new Error(`Error al obtener CIP (${response.status}): ${responseData.error}`);
     }
 
-    checkoutId = responseData.checkoutId;
-    if (!checkoutId) {
-      throw new Error('ID de pagamento válido não foi recebido da API.');
-    }
+    const cip = responseData.cip;
+    const amount = responseData.amount;
 
-    console.log('[step3.js] checkoutId recebido:', checkoutId);
+    if (!cip || !amount) throw new Error('Datos incompletos: CIP o monto faltante.');
 
     isRedirectPrepared = true;
 
-    // ✅ Redireciona para nova aba externa ao clicar em "Pagar ahora"
+    // Evento ao clicar em "Pagar ahora"
     nextButton.onclick = () => {
       const selectedPayment = document.querySelector('input[name="pago"]:checked');
       if (!selectedPayment) return;
 
-      if (selectedPayment.value === 'tarjeta') {
+      const method = selectedPayment.value;
+
+      if (method === 'tarjeta') {
         nextButton.disabled = true;
         nextButton.innerHTML = 'Redirigiendo...';
+        const paymentUrl = `https://iugu-checkout.netlify.app/checkout/pago-tarjeta.html?id=${cip}`;
+        window.open(paymentUrl, '_blank');
+      }
 
-        const paymentUrl = `https://iugu-checkout.netlify.app/checkout/iugusumup-payment.html?id=${checkoutId}`;
-        window.open(paymentUrl, '_blank'); // NOVO: abre em nova aba
-
-      } else {
-        transferenciaInfo.scrollIntoView({ behavior: 'smooth' });
-        alert('Método de transferencia bancaria aún no está habilitado.');
+      if (method === 'pagoefectivo') {
+        nextButton.disabled = true;
+        nextButton.innerHTML = 'Generando CIP...';
+        const cipUrl = `https://iugu-checkout.netlify.app/checkout/pagoefectivo-payment.html?amount=${amount}&cip=${cip}`;
+        window.open(cipUrl, '_blank');
       }
     };
 
-    // Controle de seleção visual entre cartão e transferência
-    document.querySelectorAll('.payment-method-card, .payment-option').forEach(card => {
+    // Controle visual da seleção de método de pagamento
+    document.querySelectorAll('.payment-option').forEach(card => {
       card.addEventListener('click', () => {
         const selected = card.querySelector('input[type="radio"]');
-        if (selected) {
+        if (selected && !selected.checked) {
           selected.checked = true;
+        }
 
-          document.querySelectorAll('.payment-method-card, .payment-option').forEach(c => c.classList.remove('active'));
-          card.classList.add('active');
+        document.querySelectorAll('.payment-option').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
 
-          const isCard = selected.value === 'tarjeta';
-          sumupWrapper.style.display = 'none'; // Widget oculto
-          transferenciaInfo.style.display = isCard ? 'none' : 'block';
+        const selectedMethod = selected.value;
+        if (pagoefectivoInfo) {
+          pagoefectivoInfo.style.display = selectedMethod === 'pagoefectivo' ? 'block' : 'none';
         }
       });
     });
 
   } catch (err) {
-    console.error('[step3.js] Erro crítico ao preparar o pagamento:', err);
-    alert(`Ocorreu um erro ao preparar o sistema de pago:\n\n${err.message}`);
+    console.error('[step3.js] Error al preparar el pago:', err);
+    alert(`Error al preparar el sistema de pago:\n\n${err.message}`);
   }
 }

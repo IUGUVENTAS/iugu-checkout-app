@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PagoEfectivo - Confirmación de Pago</title>
+  <link rel="preconnect" href="https://cds.template.pagoefectivo.g3c.pe">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-yellow: #FFC107;
+      --secondary-gray: #F8F9FA;
+      --border-light: #E0E0E0;
+      --text-dark: #212529;
+      --text-bold: #000000;
+      --success-green: #28A745;
+      --shadow-subtle: rgba(0, 0, 0, 0.05);
+      --shadow-medium: rgba(0, 0, 0, 0.1);
+      --amount-color: #343A40;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: var(--secondary-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      margin: auto;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px var(--shadow-subtle);
+      position: relative;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-yellow) 0%, #FFD700 100%);
+      border-radius: 12px 12px 0 0;
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      transform: rotate(45deg);
+      border-radius: 50%;
+    }
+
+    .header img {
+      height: 32px;
+      margin-bottom: 0.75rem;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-bold);
+      text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    }
+
+    .title {
+      text-align: center;
+      margin: 1.5rem 0 1.25rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-bold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .title img.company-logo {
+        max-width: 150px;
+        height: auto;
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    .title .company-name-fallback {
+        display: none; /* Hidden by default */
+        font-size: 1.2rem; /* Matches title font size */
+        font-weight: 700;
+        color: var(--text-bold);
+    }
+
+    .info-box {
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      background: white;
+      box-shadow: 0 1px 5px var(--shadow-subtle);
+    }
+
+    .info-box p {
+      margin: 0.4rem 0;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .info-box p strong {
+      color: var(--text-bold);
+    }
+
+    .cip-box,
+    .amount-box {
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 10px var(--shadow-subtle);
+    }
+
+    .cip-box {
+      background: var(--primary-yellow);
+      color: var(--text-bold);
+      position: relative;
+    }
+
+    .cip-box small {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .cip {
+      font-size: 1.9rem;
+      margin-top: 0.25rem;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
+    .copy-button {
+      background: var(--text-bold);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .copy-button:hover {
+      background: #333;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow-medium);
+    }
+
+    .copy-button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 3px var(--shadow-medium);
+    }
+
+    .copy-button.copied {
+      background: var(--success-green);
+      animation: fadeOut 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+
+    .amount-box {
+      background: var(--secondary-gray);
+      border: 1px dashed var(--border-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .amount-box small {
+      font-size: 0.95rem;
+      color: var(--text-bold);
+    }
+
+    .amount {
+      font-size: 1.8rem;
+      margin-top: 0.25rem;
+      color: var(--amount-color);
+      font-weight: 700;
+    }
+
+    .due-date {
+      text-align: center;
+      font-size: 0.9rem;
+      margin: 1rem 0 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .due-date strong {
+      font-weight: 700;
+      color: var(--text-bold);
+    }
+
+    .countdown-timer {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #D32F2F;
+      margin-bottom: 2rem;
+      padding: 0.5rem 1rem;
+      background: #FFEBEE;
+      border-radius: 8px;
+      display: block;
+      width: fit-content;
+      margin: 0.5rem auto 2rem auto;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    .app-box {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: #1A1A1A;
+      color: white;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .app-box img {
+      height: 72px;
+      flex-shrink: 0;
+    }
+
+    .app-box div {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .app-box div strong {
+      color: var(--primary-yellow);
+      font-weight: 600;
+    }
+
+    .icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      justify-content: center;
+      margin-top: 2rem;
+      padding: 1rem 0;
+      border-top: 1px dashed var(--border-light);
+    }
+
+    .icons img {
+      height: 32px;
+      transition: transform 0.2s ease;
+    }
+
+    .icons img:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 576px) {
+      body {
+        padding: 0;
+      }
+      .container {
+        margin: 0;
+        padding: 1rem;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .header {
+        margin: -1rem -1rem 1rem -1rem;
+        border-radius: 0;
+      }
+      .cip-box, .amount-box {
+        padding: 1.2rem;
+      }
+      .cip {
+        font-size: 1.6rem;
+      }
+      .amount {
+        font-size: 1.5rem;
+      }
+      .app-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+      .app-box img {
+        height: 60px;
+      }
+      .countdown-timer {
+        font-size: 1.1rem;
+        width: fit-content;
+        margin: 0.5rem auto 2rem auto;
+      }
+      .title img.company-logo {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/PagoEfectivo.84d8931e9864b24776a9a4210862edb3.svg" alt="PagoEfectivo" />
+      <h2>Información Clave para tu Pago</h2>
+    </div>
+
+    <h1 class="title">
+      ¡Estás a un paso de completar tu compra en
+      <img src="assets/img/toptoplogo3.svg" alt="Logo de la tienda Topitop" class="company-logo" onerror="this.style.display='none'; document.getElementById('topitop-fallback').style.display='block';" />
+      <span id="topitop-fallback" class="company-name-fallback" aria-label="Tienda Topitop">Topitop</span>
+    </h1>
+
+    <div class="info-box">
+      <p><strong>Empresa:</strong> <span>PagoEfectivo</span></p>
+      <p><strong>Servicio:</strong> <span>PagoEfectivo Soles</span></p>
+    </div>
+
+    <div class="cip-box">
+      <small>Tu Código de Pago (CIP)</small>
+      <div class="cip" id="cip-code">Cargando...</div>
+      <button class="copy-button" id="copy-cip-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        <span>Copiar CIP</span>
+      </button>
+    </div>
+
+    <div class="amount-box">
+      <small>Monto Total a Pagar</small>
+      <div class="amount" id="amount-value">Cargando...</div>
+    </div>
+
+    <div class="due-date">Paga antes de <strong id="date-limit">[data]</strong></div>
+    <div class="countdown-timer" id="countdown-timer">Tiempo restante: --:--:--</div>
+
+    <div class="app-box">
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/WalletHand.b220b94fe5cbe06ef2591df4e0d3beef.svg" alt="App" />
+      <div>
+        Simplifica tu pago: Abona tu <strong>CIP</strong> de forma rápida y segura desde la app de <strong>PagoEfectivo</strong>.
+      </div>
+    </div>
+
+    <div class="icons">
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/bbva.3a2dd25a2a21c61b5530c11b6829fe65.svg" alt="BBVA" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/bcp.5e9fcf044e0ed12566bd785610b2ded7.svg" alt="BCP" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/yape.6f00750910bdac82f9ec3b0f0fec9e5b.svg" alt="Yape" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/scotiabank.759458c464a9de2bd93cb5d064dd1047.svg" alt="Scotiabank" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/caja-arequipa.2294ef900e90ecc44b3b1070d7d9638a.svg" alt="Caja Arequipa" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/interbank.766217333417e0c110d2611ad8deb44a.svg" alt="Interbank" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/banbif.dbf9969923ecad95902df43e78d19307.svg" alt="BanBif" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/kasnet.95d7113dc1b1c137ad39ea8602123e77.svg" alt="Kasnet" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/western-union.18c282c81612ae3bf15b481523f73c4d.svg" alt="Western Union" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/logo-tambo.80dd16a4f88c587d3fbc6a3b51dda648.svg" alt="Tambo" />
+      <img src="https://cds.template.pagoefectivo.g3c.pe/template-pending-payment/assets/agente-red-digital.ed54cfae355a66596b06b6ca73827205.svg" alt="Agente Red Digital" />
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get("amount");
+    const cip = params.get("cip");
+
+    const cipCodeElement = document.getElementById('cip-code');
+    const amountValueElement = document.getElementById('amount-value');
+    const dateLimitElement = document.getElementById('date-limit');
+    const copyCipBtn = document.getElementById('copy-cip-btn');
+    const countdownTimerElement = document.getElementById('countdown-timer');
+    const companyLogo = document.querySelector('.company-logo');
+    const topitopFallback = document.getElementById('topitop-fallback');
+
+    cipCodeElement.textContent = cip || '---';
+    amountValueElement.textContent = amount ? `S/. ${parseFloat(amount).toFixed(2)}` : '---';
+
+    // Calculate due date (4 hours from now)
+    const dueDate = new Date();
+    dueDate.setHours(dueDate.getHours() + 4);
+
+    const options = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const formattedDate = dueDate.toLocaleDateString('es-PE', options);
+    dateLimitElement.textContent = formattedDate;
+
+    // Countdown Timer
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = dueDate.getTime() - now;
+
+      if (distance < 0) {
+        countdownTimerElement.textContent = "¡Tiempo expirado!"; // Corrected to Spanish
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Corrected to Spanish "Tiempo restante"
+      countdownTimerElement.textContent = `Tiempo restante: ${days > 0 ? days + 'd ' : ''}${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call to display immediately
+
+    // Copy CIP functionality
+    copyCipBtn.addEventListener('click', async () => {
+      const cipText = cipCodeElement.textContent;
+      try {
+        await navigator.clipboard.writeText(cipText);
+        const originalText = copyCipBtn.querySelector('span').textContent;
+        const originalIcon = copyCipBtn.querySelector('svg').outerHTML;
+
+        copyCipBtn.classList.add('copied');
+        copyCipBtn.querySelector('span').textContent = '¡Copiado!';
+        copyCipBtn.querySelector('svg').outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><polyline points="20 6 9 17 4 12"/></svg>';
+
+        setTimeout(() => {
+          copyCipBtn.classList.remove('copied');
+          copyCipBtn.querySelector('span').textContent = originalText;
+          copyCipBtn.querySelector('svg').outerHTML = originalIcon;
+        }, 2000); // Revert after 2 seconds
+      } catch (err) {
+        console.error('Failed to copy CIP: ', err);
+      }
+    });
+
+    // Logo Fallback: If image fails to load, show text fallback
+    companyLogo.onerror = function() {
+        this.style.display = 'none';
+        topitopFallback.style.display = 'block';
+    };
+  </script>
+</body>
+</html>

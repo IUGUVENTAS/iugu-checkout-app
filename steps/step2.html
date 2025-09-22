@@ -10,7 +10,7 @@
         <circle cx="17.5" cy="18.5" r="2.5" />
       </svg>
       <span class="section-header-text">
-        Modo entrega: <strong>Despacho a domicilio</strong>
+        Modo de entrega: <strong>Despacho a domicilio</strong>
       </span>
     </div>
     <button type="button" class="pill-button" id="change-shipping-mode">
@@ -25,67 +25,70 @@
   <!-- Cartão com formulário de endereço -->
   <div class="checkout-card">
     <div class="card-header">
-      <h2 class="card-title">Dirección de Despacho</h2>
+      <h2 class="card-title">Dirección de Entrega</h2>
     </div>
 
     <div class="form-grid">
 
-      <!-- Região -->
-      <div class="input-wrapper" id="region-wrapper">
-        <label class="input-label" for="region">Región</label>
-        <select id="region" class="checkout-input" required>
-          <option value="" disabled selected>Selecciona una región</option>
-          <option value="AP">Arica y Parinacota</option>
-          <option value="TA">Tarapacá</option>
-          <option value="AN">Antofagasta</option>
-          <option value="AT">Atacama</option>
-          <option value="CO">Coquimbo</option>
-          <option value="VA">Valparaíso</option>
-          <option value="RM">Metropolitana de Santiago</option>
-          <option value="OH">Libertador General Bernardo O'Higgins</option>
-          <option value="MA">Maule</option>
-          <option value="NB">Ñuble</option>
-          <option value="BI">Biobío</option>
-          <option value="AR">La Araucanía</option>
-          <option value="LR">Los Ríos</option>
-          <option value="LL">Los Lagos</option>
-          <option value="AI">Aysén</option>
-          <option value="MG">Magallanes</option>
+      <!-- Departamento -->
+      <div class="input-wrapper" id="departamento-wrapper">
+        <label class="input-label" for="departamento">Departamento</label>
+        <select id="departamento" class="checkout-input" required>
+          <option value="" disabled selected>Selecciona un departamento</option>
+          <option value="Amazonas">Amazonas</option>
+          <option value="Áncash">Áncash</option>
+          <option value="Apurímac">Apurímac</option>
+          <option value="Arequipa">Arequipa</option>
+          <option value="Ayacucho">Ayacucho</option>
+          <option value="Cajamarca">Cajamarca</option>
+          <option value="Callao">Callao</option>
+          <option value="Cusco">Cusco</option>
+          <option value="Huancavelica">Huancavelica</option>
+          <option value="Huánuco">Huánuco</option>
+          <option value="Ica">Ica</option>
+          <option value="Junín">Junín</option>
+          <option value="La Libertad">La Libertad</option>
+          <option value="Lambayeque">Lambayeque</option>
+          <option value="Lima">Lima</option>
+          <option value="Loreto">Loreto</option>
+          <option value="Madre de Dios">Madre de Dios</option>
+          <option value="Moquegua">Moquegua</option>
+          <option value="Pasco">Pasco</option>
+          <option value="Piura">Piura</option>
+          <option value="Puno">Puno</option>
+          <option value="San Martín">San Martín</option>
+          <option value="Tacna">Tacna</option>
+          <option value="Tumbes">Tumbes</option>
+          <option value="Ucayali">Ucayali</option>
         </select>
         <span class="validation-icon"></span>
       </div>
 
-      <!-- Comuna -->
-      <div class="input-wrapper" id="comuna-wrapper">
-        <label class="input-label" for="comuna">Comuna</label>
-        <input id="comuna" type="text" class="checkout-input" placeholder="Ingresa tu comuna" required>
+      <!-- Provincia -->
+      <div class="input-wrapper" id="provincia-wrapper">
+        <label class="input-label" for="provincia">Provincia</label>
+        <input id="provincia" type="text" class="checkout-input" placeholder="Ej: Lima, Cusco, Piura" required>
         <span class="validation-icon"></span>
       </div>
 
-      <!-- Calle -->
-      <div class="input-wrapper" id="calle-wrapper">
-        <label class="input-label" for="calle">Calle</label>
-        <input id="calle" type="text" class="checkout-input" placeholder="Ej: Av. Libertador" required>
+      <!-- Distrito -->
+      <div class="input-wrapper" id="distrito-wrapper">
+        <label class="input-label" for="distrito">Distrito</label>
+        <input id="distrito" type="text" class="checkout-input" placeholder="Ej: Miraflores, Los Olivos" required>
         <span class="validation-icon"></span>
       </div>
 
-      <!-- Número -->
-      <div class="input-wrapper" id="numero-wrapper">
-        <label class="input-label" for="numero">Número</label>
-        <input id="numero" type="text" class="checkout-input" placeholder="Ej: 1234" required>
+      <!-- Dirección completa -->
+      <div class="input-wrapper grid-col-span-2" id="direccion-wrapper">
+        <label class="input-label" for="direccion">Dirección completa</label>
+        <input id="direccion" type="text" class="checkout-input" placeholder="Calle, número, referencia" required>
         <span class="validation-icon"></span>
-      </div>
-
-      <!-- Depto / Oficina -->
-      <div class="input-wrapper grid-col-span-2" id="depto-wrapper">
-        <label class="input-label" for="depto">Depto / Oficina (Opcional)</label>
-        <input id="depto" type="text" class="checkout-input" placeholder="Ej: Depto 56B">
       </div>
 
     </div>
   </div>
 
-  <!-- Opções de envio -->
+  <!-- Opciones de entrega -->
   <div class="shipping-options">
 
     <!-- Entrega Express -->
@@ -94,7 +97,7 @@
         <img src="assets/img/full-verde.svg" alt="Icono entrega" />
       </div>
       <div class="shipping-details">
-        <div class="shipping-title">Entrega por Abcdin Express</div>
+        <div class="shipping-title">Entrega por Topitop Express</div>
         <div class="shipping-subtext">Entrega en 1 o 2 días hábiles</div>
       </div>
       <div class="shipping-cost">Envío gratis</div>
@@ -106,8 +109,8 @@
         <img src="assets/img/relogio-verde.svg" alt="Icono retiro" />
       </div>
       <div class="shipping-details">
-        <div class="shipping-title">Disponible para retiro en tienda más cercana</div>
-        <div class="shipping-subtext">En cualquier Abcdin o La Polar</div>
+        <div class="shipping-title">Disponible para retiro en tienda Topitop</div>
+        <div class="shipping-subtext">En cualquier local autorizado Topitop</div>
       </div>
       <div class="shipping-cost">Retiro en 2h</div>
     </div>

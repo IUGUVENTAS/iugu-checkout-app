@@ -1,10 +1,10 @@
 /**
  * /assets/js/summary.js
- * Gerencia a lógica de exibição e atualização do resumo do pedido.
+ * Gerencia a lógica de exibição e atualização do resumo do pedido (versão Perú).
  */
 
 /**
- * Inicializa o efeito sanfona do resumo do pedido.
+ * Inicializa o efeito sanfona do resumo do pedido (modo mobile).
  */
 function initializeSummary() {
   const summaryHeader = document.getElementById('summaryHeader');
@@ -30,7 +30,7 @@ function initializeSummary() {
  * @param {object} cartData - Objeto com dados do carrinho (items, total_price).
  */
 function populateSummary(cartData) {
-  console.log('[SUMMARY] Dados recebidos do carrinho:', cartData);
+  console.log('[SUMMARY] Datos recibidos del carrito:', cartData);
 
   const itemsList = document.getElementById('summary-items-list');
   const subtotalEl = document.getElementById('summary-subtotal');
@@ -38,7 +38,7 @@ function populateSummary(cartData) {
   const totalPreviewEl = document.querySelector('.total-price-preview');
 
   if (!itemsList || !subtotalEl || !totalEl) {
-    console.error('[SUMMARY] Elementos essenciais do DOM não encontrados.');
+    console.error('[SUMMARY] Elementos esenciales del DOM no encontrados.');
     return;
   }
 
@@ -52,10 +52,7 @@ function populateSummary(cartData) {
 
   // Renderiza os itens do carrinho
   cartData.items.forEach(item => {
-    const itemPrice = (item.price / 100).toLocaleString('es-CL', {
-      style: 'currency',
-      currency: 'CLP'
-    });
+    const itemPrice = formatToSoles(item.price);
 
     itemsList.innerHTML += `
       <div class="summary-item">
@@ -69,18 +66,30 @@ function populateSummary(cartData) {
   });
 
   // Formatação do total
-  const rawTotal = cartData.total_price;
-  const totalPesos = Math.round(rawTotal / 100);
-  const totalFormatted = totalPesos.toLocaleString('es-CL', {
-    style: 'currency',
-    currency: 'CLP'
-  });
+  const totalFormatted = formatToSoles(cartData.total_price);
 
   subtotalEl.textContent = totalFormatted;
   totalEl.textContent = totalFormatted;
   if (totalPreviewEl) totalPreviewEl.textContent = totalFormatted;
 
-  // Salva o total (em CLP inteiros) no localStorage para uso posterior
-  localStorage.setItem('checkout_total', totalPesos);
-  console.log(`[SUMMARY] Valor salvo no localStorage: ${totalPesos} CLP`);
+  // Salva o total no localStorage (em centavos)
+  localStorage.setItem('checkout_total', cartData.total_price);
+  console.log(`[SUMMARY] Total guardado en localStorage: ${cartData.total_price} centavos`);
+}
+
+/**
+ * Formata um valor (em centavos) para Soles peruanos (S/ 1.234,56).
+ * @param {number} cents - Valor em centavos.
+ * @returns {string} - Valor formatado em S/.
+ */
+function formatToSoles(cents) {
+  if (typeof cents !== 'number') return 'S/ 0,00';
+
+  const value = cents / 100;
+  return value.toLocaleString('es-PE', {
+    style: 'currency',
+    currency: 'PEN',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
 }

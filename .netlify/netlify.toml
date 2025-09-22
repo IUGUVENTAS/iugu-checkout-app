@@ -1,13 +1,13 @@
-functionsDirectory = "C:\\Users\\Central Gamer\\OneDrive\\Anexos\\Área de Trabalho\\DEV CHECKOUT\\CHECKOUT LATAM ORGANIZADO\\checkout\\netlify\\functions"
+functionsDirectory = "C:\\Users\\Central Gamer\\OneDrive\\Anexos\\Área de Trabalho\\DEV CHECKOUT\\DEV - CHECKOUT LATAM\\CHECKOUT LATAM ORGANIZADO\\checkout\\netlify\\functions"
 functionsDirectoryOrigin = "default"
 plugins = []
 headers = []
 redirects = []
 
 [build]
-publish = "C:\\Users\\Central Gamer\\OneDrive\\Anexos\\Área de Trabalho\\DEV CHECKOUT\\CHECKOUT LATAM ORGANIZADO\\checkout"
+publish = "C:\\Users\\Central Gamer\\OneDrive\\Anexos\\Área de Trabalho\\DEV CHECKOUT\\DEV - CHECKOUT LATAM\\CHECKOUT LATAM ORGANIZADO\\checkout"
 publishOrigin = "default"
-functions = "C:\\Users\\Central Gamer\\OneDrive\\Anexos\\Área de Trabalho\\DEV CHECKOUT\\CHECKOUT LATAM ORGANIZADO\\checkout\\netlify\\functions"
+functions = "C:\\Users\\Central Gamer\\OneDrive\\Anexos\\Área de Trabalho\\DEV CHECKOUT\\DEV - CHECKOUT LATAM\\CHECKOUT LATAM ORGANIZADO\\checkout\\netlify\\functions"
 
 [build.environment]
 
