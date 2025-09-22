@@ -105,14 +105,18 @@
 
 /* Estados do input */
 .checkout-input:focus,
-.checkout-input:not(:placeholder-shown) {
+.checkout-input.has-value,
+.input-wrapper.has-value .checkout-input,
+.input-group.has-value .checkout-input {
   background-color: #ffffff;
   border-color: var(--primary);
   box-shadow: 0 0 0 4px rgba(92, 106, 196, 0.08);
 }
 
 .checkout-input:focus + .input-label,
-.checkout-input:not(:placeholder-shown) + .input-label {
+.checkout-input.has-value + .input-label,
+.input-wrapper.has-value .input-label,
+.input-group.has-value .input-label {
   top: 0.75rem;
   left: 1rem;
   font-size: 0.75rem;
@@ -122,15 +126,9 @@
   transform: translateY(0);
 }
 
-/* Placeholder invisível para funcionalidade */
+/* Placeholder sempre invisível */
 .checkout-input::placeholder {
   opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.checkout-input:focus::placeholder {
-  opacity: 0.5;
-  color: var(--text-light);
 }
 
 /* === GRUPO TELEFONE MODERNO === */

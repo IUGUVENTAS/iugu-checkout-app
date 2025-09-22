@@ -5,16 +5,35 @@
 function initializeStep1() {
     console.log('Etapa 1 (Contacto Perú) inicializada.');
 
+    // 🎯 Inicializa floating labels
+    initializeFloatingLabels();
+
     // 🔁 Tenta preencher os campos com dados previamente salvos
     const email = localStorage.getItem('email');
     const name = localStorage.getItem('name');
     const documentNumber = localStorage.getItem('document');
     const phone = localStorage.getItem('phone');
 
-    if (email) document.getElementById('email').value = email;
-    if (name) document.getElementById('name').value = name;
-    if (documentNumber) document.getElementById('document').value = documentNumber;
-    if (phone) document.getElementById('phone').value = phone;
+    if (email) {
+        const emailInput = document.getElementById('email');
+        emailInput.value = email;
+        updateFloatingLabel(emailInput);
+    }
+    if (name) {
+        const nameInput = document.getElementById('name');
+        nameInput.value = name;
+        updateFloatingLabel(nameInput);
+    }
+    if (documentNumber) {
+        const docInput = document.getElementById('document');
+        docInput.value = documentNumber;
+        updateFloatingLabel(docInput);
+    }
+    if (phone) {
+        const phoneInput = document.getElementById('phone');
+        phoneInput.value = phone;
+        updateFloatingLabel(phoneInput);
+    }
 
     // 📌 Validação contínua
     const fieldsToValidate = ['email', 'name', 'document', 'phone'];
@@ -24,9 +43,55 @@ function initializeStep1() {
         if (input) {
             input.addEventListener('input', () => {
                 validatePeruField(input);
+                updateFloatingLabel(input);
+            });
+            
+            input.addEventListener('focus', () => {
+                updateFloatingLabel(input);
+            });
+            
+            input.addEventListener('blur', () => {
+                updateFloatingLabel(input);
             });
         }
     });
+}
+
+/**
+ * Inicializa os floating labels para todos os inputs
+ */
+function initializeFloatingLabels() {
+    const inputs = document.querySelectorAll('.checkout-input');
+    
+    inputs.forEach(input => {
+        // Atualiza o estado inicial
+        updateFloatingLabel(input);
+        
+        // Listeners para mudanças
+        input.addEventListener('input', () => updateFloatingLabel(input));
+        input.addEventListener('focus', () => updateFloatingLabel(input));
+        input.addEventListener('blur', () => updateFloatingLabel(input));
+    });
+}
+
+/**
+ * Atualiza o estado do floating label baseado no valor do input
+ */
+function updateFloatingLabel(input) {
+    const wrapper = input.closest('.input-wrapper') || input.closest('.input-group');
+    if (!wrapper) return;
+    
+    const hasValue = input.value.trim().length > 0;
+    const isFocused = document.activeElement === input;
+    
+    // Adiciona/remove classe baseado no estado
+    if (hasValue || isFocused) {
+        wrapper.classList.add('has-value');
+        input.classList.add('has-value');
+    } else {
+        wrapper.classList.remove('has-value');
+        input.classList.remove('has-value');
+    }
 }
 
 /**
