@@ -4,6 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PagoEfectivo - Confirmación de Pago</title>
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9VWYLXYEPM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9VWYLXYEPM', {
+      page_title: 'PagoEfectivo - Confirmación de Pago',
+      page_location: window.location.href,
+      send_page_view: true
+    });
+  </script>
+
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1071762711791135');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1071762711791135&ev=PageView&noscript=1"
+  /></noscript>
+  
   <link rel="preconnect" href="https://cds.template.pagoefectivo.g3c.pe">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -450,6 +481,24 @@
     // Copy CIP functionality
     copyCipBtn.addEventListener('click', async () => {
       const cipText = cipCodeElement.textContent;
+      
+      // 🎯 TRACKING: CIP copiado
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'cip_copied', {
+          payment_method: 'pagoefectivo',
+          cip_code: cipText,
+          amount: amount
+        });
+      }
+      
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Custom', {
+          event_name: 'CIPCopied',
+          payment_method: 'pagoefectivo',
+          cip_code: cipText
+        });
+      }
+      
       try {
         await navigator.clipboard.writeText(cipText);
         const originalText = copyCipBtn.querySelector('span').textContent;
@@ -467,6 +516,59 @@
       } catch (err) {
         console.error('Failed to copy CIP: ', err);
       }
+    });
+
+    // 🎯 TRACKING: Eventos da página de pagamento
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track visualização da página de pagamento
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'payment_page_view', {
+          payment_method: 'pagoefectivo',
+          currency: 'PEN',
+          value: amount,
+          cip_generated: cip ? 'true' : 'false'
+        });
+      }
+      
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Custom', {
+          event_name: 'PaymentPageView',
+          payment_method: 'pagoefectivo',
+          currency: 'PEN',
+          value: amount
+        });
+      }
+      
+      // Simular conversão após 5 segundos (considerando que usuário viu as instruções)
+      setTimeout(() => {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'purchase', {
+            transaction_id: 'pagoefectivo_' + cip + '_' + Date.now(),
+            value: amount,
+            currency: 'PEN',
+            payment_method: 'pagoefectivo',
+            items: [{
+              item_id: 'produto_topitop',
+              item_name: 'Produto Topitop',
+              category: 'Clothing',
+              quantity: 1,
+              price: amount
+            }]
+          });
+        }
+        
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Purchase', {
+            content_type: 'product',
+            currency: 'PEN',
+            value: amount,
+            contents: [{
+              id: 'produto_topitop',
+              quantity: 1
+            }]
+          });
+        }
+      }, 5000);
     });
 
     // Logo Fallback: If image fails to load, show text fallback

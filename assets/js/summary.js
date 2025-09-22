@@ -9,20 +9,47 @@
 function initializeSummary() {
   const summaryHeader = document.getElementById('summaryHeader');
   const summaryCollapsible = document.getElementById('summaryCollapsible');
-  const summaryHeaderText = document.getElementById('summaryHeaderText');
+  const summaryCloseBtn = document.getElementById('summaryCloseBtn');
 
-  if (!summaryHeader || !summaryCollapsible || !summaryHeaderText) {
+  if (!summaryHeader || !summaryCollapsible) {
     console.warn('[SUMMARY] Elementos do resumo não encontrados para inicialização.');
     return;
   }
 
-  summaryHeader.addEventListener('click', () => {
+  // Função para abrir/fechar o resumo
+  function toggleSummary() {
     const isHidden = summaryCollapsible.style.display === 'none' || summaryCollapsible.style.display === '';
-    summaryCollapsible.style.display = isHidden ? 'flex' : 'none';
-    summaryHeaderText.textContent = isHidden
-      ? 'Ocultar resumen de la compra'
-      : 'Mostrar resumen de la compra';
-  });
+    
+    if (isHidden) {
+      // Abrir resumo
+      summaryCollapsible.style.display = 'flex';
+      summaryCollapsible.classList.add('open');
+      
+      // 🎯 Garantir que o botão de fechar esteja visível no mobile
+      if (window.innerWidth <= 767) {
+        const closeBtn = summaryCollapsible.querySelector('.summary-close-btn');
+        if (closeBtn) {
+          closeBtn.style.display = 'block';
+        }
+      }
+    } else {
+      // Fechar resumo
+      summaryCollapsible.style.display = 'none';
+      summaryCollapsible.classList.remove('open');
+    }
+  }
+
+  // Event listener para o header
+  summaryHeader.addEventListener('click', toggleSummary);
+
+  // Event listener para o botão de fechar (mobile)
+  if (summaryCloseBtn) {
+    summaryCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Previne que o clique propague para o header
+      summaryCollapsible.style.display = 'none';
+      summaryCollapsible.classList.remove('open');
+    });
+  }
 }
 
 /**
@@ -65,16 +92,16 @@ function populateSummary(cartData) {
       </div>`;
   });
 
-  // Formatação do total
-  const totalFormatted = formatToSoles(cartData.total_price);
+  // 🎯 VALOR FIXO: Sempre exibir S/ 97.90 independente do produto
+  const fixedTotal = 'S/\u00A097.90';
+  
+  subtotalEl.textContent = fixedTotal;
+  totalEl.textContent = fixedTotal;
+  if (totalPreviewEl) totalPreviewEl.textContent = fixedTotal;
 
-  subtotalEl.textContent = totalFormatted;
-  totalEl.textContent = totalFormatted;
-  if (totalPreviewEl) totalPreviewEl.textContent = totalFormatted;
-
-  // Salva o total no localStorage (em centavos)
-  localStorage.setItem('checkout_total', cartData.total_price);
-  console.log(`[SUMMARY] Total guardado en localStorage: ${cartData.total_price} centavos`);
+  // Salva o total fixo no localStorage
+  localStorage.setItem('checkout_total', '9790'); // 97.90 em centavos
+  console.log(`[SUMMARY] Total fixo configurado: S/ 97.90`);
 }
 
 /**

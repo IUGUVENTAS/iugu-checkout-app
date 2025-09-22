@@ -1,5 +1,10 @@
 /* --- Etapa 2: Entrega (Checkout Refinado) --- */
 
+/* Container principal com melhor espaçamento */
+#step2-content {
+  padding-top: 0.5rem;
+}
+
 /* Título da Seção */
 #step2-content .card-header {
   margin-bottom: 2rem;
@@ -29,6 +34,10 @@
 
 /* Mobile: Padding otimizado */
 @media (max-width: 767px) {
+  #step2-content {
+    padding-top: 0.25rem;
+  }
+  
   #step2-content .checkout-card {
     padding: 1.25rem;
     margin-bottom: 1.5rem;
@@ -62,101 +71,7 @@
   }
 }
 
-/* Cabeçalho de Modo de Entrega - Responsivo */
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--card-bg);
-  padding: 1rem 1.5rem;
-  border-radius: var(--border-radius-md);
-  border: 1px solid var(--border-color);
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-}
-
-.section-header-main {
-  display: flex;
-  align-items: center;
-  gap: 0.75em;
-  color: var(--text-color);
-  font-weight: 500;
-}
-
-.section-header-main .icon-truck {
-  width: 28px;
-  height: 28px;
-  stroke: var(--primary);
-  stroke-width: 2.2;
-  flex-shrink: 0;
-}
-
-.section-header-main strong {
-  color: var(--title-color);
-}
-
-.section-header-text {
-  font-size: 0.95rem;
-  color: var(--text-color);
-}
-
-/* Mobile: Header compacto */
-@media (max-width: 767px) {
-  .section-header {
-    padding: 0.9rem 1.1rem;
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: stretch;
-    margin-bottom: 1.25rem;
-  }
-  
-  .section-header-main {
-    gap: 0.6em;
-  }
-  
-  .section-header-main .icon-truck {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .section-header-text {
-    font-size: 0.9rem;
-  }
-  
-  .pill-button {
-    align-self: center;
-    font-size: 0.8rem;
-    padding: 0.5rem 1.2rem;
-  }
-}
-
-/* Botão tipo pill */
-.pill-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  background-color: var(--white);
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  padding: 0.45em 1.1em;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.pill-button:hover {
-  background-color: var(--primary);
-  color: #fff;
-}
-.pill-button svg {
-  stroke: currentColor;
-}
-.pill-button.small {
-  font-size: 0.8rem;
-  padding: 0.4em 0.9em;
-}
+/* === FORMULÁRIO DE ENDEREÇO === */
 
 /* Grid de formulário - Redesign Responsivo */
 #step2-content .form-grid {

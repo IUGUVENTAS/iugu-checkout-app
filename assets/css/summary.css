@@ -20,6 +20,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
 }
 
 .summary-collapsible-header:hover {
@@ -34,10 +35,47 @@
   gap: 0.75rem;
 }
 
+/* Texto responsivo para o header */
+.summary-header-text-full {
+  display: inline;
+}
+
+.summary-header-text-short {
+  display: none;
+}
+
 .summary-collapsible-header .total-price-preview {
   font-weight: 700;
   color: var(--primary);
   font-size: 1.05rem;
+}
+
+/* Botão de fechar para mobile */
+.summary-close-btn {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  color: var(--title-color);
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.summary-close-btn:hover {
+  background: rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+}
+
+.summary-close-btn:active {
+  transform: scale(0.95);
 }
 
 #summaryCollapsible {
@@ -254,15 +292,43 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 767px) {
   .summary-collapsible-header {
     padding: 0.875rem 1rem;
     font-size: 0.9rem;
   }
   
+  /* Mostrar texto curto no mobile */
+  .summary-header-text-full {
+    display: none !important;
+  }
+  
+  .summary-header-text-short {
+    display: inline !important;
+  }
+  
+  /* Mostrar botão de fechar sempre que o resumo estiver visível no mobile */
   .summary-card {
     padding: 1rem 0.875rem;
     border-radius: 12px;
+    position: relative;
+  }
+  
+  /* Botão sempre visível quando summary está aberto no mobile */
+  #summaryCollapsible:not([style*="display: none"]) .summary-close-btn,
+  .summary-card .summary-close-btn {
+    display: block !important;
+  }
+  
+  /* Melhorar o estilo do botão no mobile */
+  .summary-close-btn {
+    background: rgba(0, 0, 0, 0.15) !important;
+    color: #333 !important;
+    font-size: 1.4rem !important;
+    width: 36px !important;
+    height: 36px !important;
+    top: 0.75rem !important;
+    right: 0.75rem !important;
   }
   
   .summary-item {

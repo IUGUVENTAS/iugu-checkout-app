@@ -1,6 +1,6 @@
-/* --- Step 1: Design Moderno & Profissional --- */
+/* --- Step 1: Design Moderno e Limpo --- */
 
-/* Container principal otimizado */
+/* Container principal */
 #step1-content .checkout-card {
   padding: 1.75rem;
   background: linear-gradient(135deg, #ffffff 0%, #fefeff 100%);
@@ -22,7 +22,7 @@
   background: linear-gradient(90deg, var(--primary) 0%, #7c3aed 100%);
 }
 
-/* Header moderno e compacto */
+/* Header moderno */
 #step1-content .card-header {
   display: flex;
   align-items: center;
@@ -49,95 +49,69 @@
   letter-spacing: -0.01em;
 }
 
-/* Layout stack otimizado */
+/* Layout stack */
 #step1-content .input-group-stack {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-/* Grid responsivo para nome e documento */
+/* Grid para nome e documento */
 #step1-content .form-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 1rem;
 }
 
-/* === INPUTS MODERNOS COM FLOATING LABELS === */
-
 /* Container do input */
 #step1-content .input-wrapper {
   position: relative;
-  margin-bottom: 0;
 }
 
-/* Label flutuante moderna */
+/* Label simples acima do input */
 #step1-content .input-label {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background-color: transparent;
-  color: var(--text-color);
-  font-size: 0.75rem;
+  display: block;
+  font-size: 0.875rem;
   font-weight: 600;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
-  padding: 0 0.25rem;
-  background-color: #ffffff;
-  transform: translateY(0);
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
 }
 
 /* Input moderno */
 .checkout-input {
   width: 100%;
-  height: 56px;
-  padding: 1.5rem 1rem 0.5rem 1rem;
-  font-size: 1rem;
+  height: 50px;
+  padding: 0.875rem 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--title-color);
   background-color: #fafbfc;
   border: 2px solid #e8eaed;
-  border-radius: 12px;
+  border-radius: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   letter-spacing: 0.01em;
 }
 
-/* Estados do input */
+.checkout-input::placeholder {
+  color: #9ca3af;
+  opacity: 0.7;
+}
+
 .checkout-input:focus {
   background-color: #ffffff;
   border-color: var(--primary);
   box-shadow: 0 0 0 4px rgba(92, 106, 196, 0.08);
 }
 
-.checkout-input:focus + .input-label {
-  color: var(--primary);
-}
-
-/* Quando input está vazio - label volta para o meio */
-.checkout-input:placeholder-shown + .input-label {
-  top: 50%;
-  left: 1rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-color);
-  background-color: transparent;
-  transform: translateY(-50%);
-}
-
-/* Placeholder sempre invisível */
-.checkout-input::placeholder {
-  opacity: 0;
-}
-
-/* === GRUPO TELEFONE MODERNO === */
+/* Grupo telefone */
 #step1-content .input-group {
   position: relative;
   display: flex;
   background-color: #fafbfc;
   border: 2px solid #e8eaed;
-  border-radius: 12px;
+  border-radius: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
@@ -159,7 +133,7 @@
   background: linear-gradient(135deg, #f8f9ff 0%, #f1f3ff 100%);
   border: none;
   min-width: 60px;
-  height: 56px;
+  height: 50px;
 }
 
 #step1-content .input-group .checkout-input {
@@ -168,38 +142,8 @@
   background: transparent;
   box-shadow: none;
   flex: 1;
-  padding: 1.5rem 1rem 0.5rem 1rem;
-}
-
-/* Label especial para grupo telefone */
-#step1-content .input-group .input-label {
-  position: absolute;
-  top: 1rem;
-  left: 5rem; /* Ajustado para ficar após o prefixo +51 */
-  background-color: #ffffff;
-  color: var(--primary);
-  font-size: 0.75rem;
-  font-weight: 600;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 2;
-  padding: 0 0.25rem;
-  transform: translateY(0);
-}
-
-/* Quando input do telefone está vazio - label volta para o meio */
-#step1-content .input-group .checkout-input:placeholder-shown + .input-label {
-  top: 50%;
-  left: 5rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-color);
-  background-color: transparent;
-  transform: translateY(-50%);
-}
-
-#step1-content .input-group:focus-within .input-label {
-  color: var(--primary);
+  height: 50px;
+  padding: 0.875rem 1rem;
 }
 
 #step1-content .input-group:focus-within .input-group-prefix {
@@ -207,24 +151,17 @@
   color: var(--primary);
 }
 
-/* === VALIDAÇÃO VISUAL === */
+/* Validação visual */
 .validation-icon {
   position: absolute;
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 3;
-}
-
-/* Estados de validação */
-.input-wrapper.valid .checkout-input,
-.input-group.valid {
-  border-color: #10b981;
-  background-color: #f0fdf4;
 }
 
 .input-wrapper.valid .validation-icon {
@@ -232,8 +169,13 @@
   color: #10b981;
 }
 
-.input-wrapper.error .checkout-input,
-.input-group.error {
+.input-wrapper.valid .checkout-input {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+  padding-right: 2.5rem;
+}
+
+.input-wrapper.error .checkout-input {
   border-color: #ef4444;
   background-color: #fef2f2;
 }
@@ -248,7 +190,18 @@
   gap: 0.375rem;
 }
 
-/* === RESPONSIVIDADE MOBILE === */
+/* Validação para grupo telefone */
+.input-group.valid {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+}
+
+.input-group.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+/* Responsividade */
 @media (max-width: 767px) {
   #step1-content .checkout-card {
     padding: 1.25rem;
@@ -274,18 +227,25 @@
   }
   
   .checkout-input {
-    height: 52px;
-    font-size: 0.95rem;
+    height: 48px;
+    font-size: 0.9rem;
+    padding: 0.75rem 0.875rem;
   }
   
   #step1-content .input-group {
-    height: 52px;
+    height: 48px;
   }
   
   #step1-content .input-group-prefix {
-    height: 52px;
+    height: 48px;
     min-width: 55px;
     font-size: 0.9rem;
+    padding: 0 0.75rem;
+  }
+  
+  #step1-content .input-group .checkout-input {
+    height: 48px;
+    padding: 0.75rem 0.875rem;
   }
 }
 
@@ -295,16 +255,21 @@
   }
   
   .checkout-input {
-    height: 48px;
-    padding: 1.25rem 0.875rem 0.5rem 0.875rem;
+    height: 46px;
+    padding: 0.625rem 0.75rem;
   }
   
   #step1-content .input-group {
-    height: 48px;
+    height: 46px;
   }
   
   #step1-content .input-group-prefix {
-    height: 48px;
-    padding: 0 0.75rem;
+    height: 46px;
+    padding: 0 0.625rem;
+  }
+  
+  #step1-content .input-group .checkout-input {
+    height: 46px;
+    padding: 0.625rem 0.75rem;
   }
 }

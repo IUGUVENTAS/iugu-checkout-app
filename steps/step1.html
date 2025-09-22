@@ -10,22 +10,22 @@
       <h2 class="card-title">Datos de identificación</h2>
     </div>
 
-    <!-- Formulário moderno -->
+    <!-- Formulário limpo -->
     <div class="input-group-stack">
 
-      <!-- Email com floating label -->
+      <!-- Email -->
       <div class="input-wrapper form-group" id="email-wrapper">
+        <label class="input-label" for="email">Correo electrónico</label>
         <input
           id="email"
           type="email"
           inputmode="email"
           autocomplete="email"
           class="checkout-input"
-          placeholder=" "
+          placeholder="ejemplo@correo.com"
           aria-describedby="email-error"
           required
         />
-        <label class="input-label" for="email">Correo electrónico</label>
         <span class="validation-icon">
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
         </span>
@@ -35,39 +35,39 @@
       <!-- Grid para Nome e Documento -->
       <div class="form-grid">
         
-        <!-- Nome com floating label -->
+        <!-- Nome -->
         <div class="input-wrapper form-group" id="name-wrapper">
+          <label class="input-label" for="name">Nombre y Apellido</label>
           <input
             id="name"
             type="text"
             inputmode="text"
             autocomplete="name"
             class="checkout-input"
-            placeholder=" "
+            placeholder="Tu nombre completo"
             aria-describedby="name-error"
             required
           />
-          <label class="input-label" for="name">Nombre y Apellido</label>
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
           <div class="error-message" id="name-error" style="display: none;">Este campo es obligatorio</div>
         </div>
 
-        <!-- Documento com floating label -->
+        <!-- Documento -->
         <div class="input-wrapper form-group" id="doc-wrapper">
+          <label class="input-label" for="document">DNI o RUC</label>
           <input
             id="document"
             type="text"
             inputmode="numeric"
             autocomplete="off"
             class="checkout-input"
-            placeholder=" "
+            placeholder="12345678"
             aria-describedby="document-error"
             maxlength="11"
             required
           />
-          <label class="input-label" for="document">DNI o RUC</label>
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>
@@ -75,8 +75,9 @@
         </div>
       </div>
 
-      <!-- Telefone com grupo moderno -->
+      <!-- Telefone -->
       <div class="input-wrapper form-group" id="phone-wrapper">
+        <label class="input-label" for="phone">Teléfono</label>
         <div class="input-group">
           <span class="input-group-prefix">+51</span>
           <input
@@ -85,12 +86,11 @@
             inputmode="numeric"
             autocomplete="tel"
             class="checkout-input"
-            placeholder=" "
+            placeholder="912 345 678"
             aria-describedby="phone-error"
             maxlength="9"
             required
           />
-          <label class="input-label" for="phone">Teléfono</label>
           <span class="validation-icon">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="M6 10l3 3 6-6" /></svg>
           </span>

@@ -1,9 +1,39 @@
 /**
  * assets/js/steps/step2.js
- * Inicializa os ouvintes da Etapa 2 (Entrega) com campos e lógica padrão do Peru.
+ * Inicializa os ouvintes da Etapa 2     // Adiciona event listeners para seleção
+    shippingCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Remove active de todos os cards
+            shippingCards.forEach(c => c.classList.remove('active'));
+            
+            // Adiciona active ao card clicado
+            card.classList.add('active');
+            
+            // Salva o método selecionado
+            const method = card.getAttribute('data-method') || 'unknown';
+            localStorage.setItem('selectedShippingMethod', method);
+            
+            // 🎯 TRACKING: Seleção de método de entrega
+            if (window.checkoutTracker) {
+                window.checkoutTracker.trackGA4('select_shipping_method', {
+                    shipping_method: method,
+                    step: 2
+                });
+                window.checkoutTracker.trackFB('Custom', {
+                    event_name: 'ShippingMethodSelected',
+                    shipping_method: method
+                });
+            }
+            
+            console.log('Método de entrega selecionado:', method);campos e lógica padrão do Peru.
  */
 function initializeStep2() {
     console.log('Etapa 2 (Entrega Perú) inicializada.');
+
+    // 🎯 TRACKING: Início do Step 2
+    if (window.checkoutTracker) {
+        window.checkoutTracker.startStep(2);
+    }
 
     const fieldsToValidate = ['departamento', 'provincia', 'distrito', 'direccion'];
 
@@ -21,9 +51,29 @@ function initializeStep2() {
     fieldsToValidate.forEach(fieldId => {
         const input = document.getElementById(fieldId);
         if (input) {
+            // 🎯 TRACKING: Focus em input
+            input.addEventListener('focus', () => {
+                if (window.checkoutTracker) {
+                    window.checkoutTracker.trackInputFocus(fieldId, 'step2_endereco');
+                }
+            });
+
             const eventType = input.tagName.toLowerCase() === 'select' ? 'change' : 'input';
             input.addEventListener(eventType, () => {
                 validateSimpleField(input);
+                
+                // 🎯 TRACKING: Progresso do formulário
+                if (window.checkoutTracker && input.value.trim()) {
+                    window.checkoutTracker.trackFormProgress('step2_endereco', fieldId, false);
+                }
+            });
+
+            // 🎯 TRACKING: Campo completo
+            input.addEventListener('blur', () => {
+                const isValid = validateSimpleField(input);
+                if (window.checkoutTracker && isValid && input.value.trim()) {
+                    window.checkoutTracker.trackFormProgress('step2_endereco', fieldId, true);
+                }
             });
         }
     });

@@ -43,11 +43,32 @@ function showStep(stepNumber) {
 
 function handleNextStep() {
   if (!validateCurrentStep()) {
+    // 🎯 TRACKING: Erro de validação ao tentar avançar
+    if (window.checkoutTracker) {
+      window.checkoutTracker.trackGA4('checkout_validation_error', {
+        current_step: currentStep,
+        error_type: 'incomplete_required_fields'
+      });
+    }
+    
     alert('Por favor, completa todos los campos obligatorios para continuar.');
     return;
   }
 
   saveCurrentStepData();
+
+  // 🎯 TRACKING: Progresso bem-sucedido para próximo step
+  if (window.checkoutTracker) {
+    window.checkoutTracker.trackGA4('checkout_step_complete', {
+      completed_step: currentStep,
+      next_step: currentStep + 1
+    });
+    
+    window.checkoutTracker.trackFB('Custom', {
+      event_name: 'CheckoutStepComplete',
+      step: currentStep
+    });
+  }
 
   if (currentStep < totalSteps) {
     currentStep++;
@@ -57,6 +78,14 @@ function handleNextStep() {
 
 function handlePreviousStep() {
   if (currentStep > 1) {
+    // 🎯 TRACKING: Volta ao step anterior
+    if (window.checkoutTracker) {
+      window.checkoutTracker.trackGA4('checkout_step_back', {
+        from_step: currentStep,
+        to_step: currentStep - 1
+      });
+    }
+    
     currentStep--;
     showStep(currentStep);
   }

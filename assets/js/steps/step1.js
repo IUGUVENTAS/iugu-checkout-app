@@ -5,6 +5,11 @@
 function initializeStep1() {
     console.log('Etapa 1 (Contacto Perú) inicializada.');
 
+    // 🎯 TRACKING: Início do Step 1
+    if (window.checkoutTracker) {
+        window.checkoutTracker.startStep(1);
+    }
+
     // 🎯 Inicializa floating labels
     initializeFloatingLabels();
 
@@ -41,17 +46,30 @@ function initializeStep1() {
     fieldsToValidate.forEach(fieldId => {
         const input = document.getElementById(fieldId);
         if (input) {
+            // 🎯 TRACKING: Focus em input
+            input.addEventListener('focus', () => {
+                updateFloatingLabel(input);
+                if (window.checkoutTracker) {
+                    window.checkoutTracker.trackInputFocus(fieldId, 'step1_contato');
+                }
+            });
+
             input.addEventListener('input', () => {
                 validatePeruField(input);
                 updateFloatingLabel(input);
+                
+                // 🎯 TRACKING: Progresso do formulário
+                if (window.checkoutTracker && input.value.length > 0) {
+                    window.checkoutTracker.trackFormProgress('step1_contato', fieldId, false);
+                }
             });
             
-            input.addEventListener('focus', () => {
-                updateFloatingLabel(input);
-            });
-            
+            // 🎯 TRACKING: Blur para verificar se campo foi completado
             input.addEventListener('blur', () => {
-                updateFloatingLabel(input);
+                const isValid = validatePeruField(input);
+                if (window.checkoutTracker && isValid && input.value.trim()) {
+                    window.checkoutTracker.trackFormProgress('step1_contato', fieldId, true);
+                }
             });
         }
     });
@@ -130,6 +148,28 @@ function validatePeruField(input) {
         input.classList.remove('input-error');
     } else {
         errorMessage.style.display = 'block';
+        icon.style.display = 'none';
+        input.classList.add('input-error');
+        
+        // 🎯 TRACKING: Erro de validação
+        if (window.checkoutTracker) {
+            let errorType = 'invalid_format';
+            switch (input.id) {
+                case 'email':
+                    errorType = 'invalid_email';
+                    break;
+                case 'name':
+                    errorType = 'name_too_short';
+                    break;
+                case 'document':
+                    errorType = 'invalid_document';
+                    break;
+                case 'phone':
+                    errorType = 'invalid_phone';
+                    break;
+            }
+            window.checkoutTracker.trackValidationError('step1_contato', input.id, errorType);
+        }
         icon.style.display = 'none';
         input.classList.add('input-error');
     }
