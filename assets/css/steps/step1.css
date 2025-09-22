@@ -74,17 +74,18 @@
 /* Label flutuante moderna */
 #step1-content .input-label {
   position: absolute;
-  top: 50%;
+  top: 1rem;
   left: 1rem;
-  transform: translateY(-50%);
   background-color: transparent;
   color: var(--text-color);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
   pointer-events: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
   padding: 0 0.25rem;
+  background-color: #ffffff;
+  transform: translateY(0);
 }
 
 /* Input moderno */
@@ -104,26 +105,25 @@
 }
 
 /* Estados do input */
-.checkout-input:focus,
-.checkout-input.has-value,
-.input-wrapper.has-value .checkout-input,
-.input-group.has-value .checkout-input {
+.checkout-input:focus {
   background-color: #ffffff;
   border-color: var(--primary);
   box-shadow: 0 0 0 4px rgba(92, 106, 196, 0.08);
 }
 
-.checkout-input:focus + .input-label,
-.checkout-input.has-value + .input-label,
-.input-wrapper.has-value .input-label,
-.input-group.has-value .input-label {
-  top: 0.75rem;
-  left: 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+.checkout-input:focus + .input-label {
   color: var(--primary);
-  background-color: #ffffff;
-  transform: translateY(0);
+}
+
+/* Quando input está vazio - label volta para o meio */
+.checkout-input:placeholder-shown + .input-label {
+  top: 50%;
+  left: 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-color);
+  background-color: transparent;
+  transform: translateY(-50%);
 }
 
 /* Placeholder sempre invisível */
@@ -168,6 +168,38 @@
   background: transparent;
   box-shadow: none;
   flex: 1;
+  padding: 1.5rem 1rem 0.5rem 1rem;
+}
+
+/* Label especial para grupo telefone */
+#step1-content .input-group .input-label {
+  position: absolute;
+  top: 1rem;
+  left: 5rem; /* Ajustado para ficar após o prefixo +51 */
+  background-color: #ffffff;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  padding: 0 0.25rem;
+  transform: translateY(0);
+}
+
+/* Quando input do telefone está vazio - label volta para o meio */
+#step1-content .input-group .checkout-input:placeholder-shown + .input-label {
+  top: 50%;
+  left: 5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-color);
+  background-color: transparent;
+  transform: translateY(-50%);
+}
+
+#step1-content .input-group:focus-within .input-label {
+  color: var(--primary);
 }
 
 #step1-content .input-group:focus-within .input-group-prefix {
