@@ -56,11 +56,14 @@ function handleParentMessage(data, origin) {
       // Isso garante que não haja conflito entre sessões diferentes
       clearCheckoutData();
       
+      // 🎯 IMPORTANTE: Força limite de 1 produto por sessão
+      const processedCartData = enforceOneProductLimit(data.message);
+      
       if (typeof populateSummary === 'function') {
-        populateSummary(data.message);
+        populateSummary(processedCartData);
       }
 
-      localStorage.setItem('checkout_cart', JSON.stringify(data.message));
+      localStorage.setItem('checkout_cart', JSON.stringify(processedCartData));
 
       sendMessageToParent('iframe-loaded', true, origin);
       break;
@@ -173,6 +176,50 @@ function clearCheckoutData() {
   });
   
   console.log('[IFRAME] 🎯 Todos os dados do checkout foram limpos!');
+}
+
+/**
+ * Força o limite de 1 produto por sessão do checkout.
+ * Aceita apenas o último produto adicionado (mais recente).
+ * @param {object} cartData - Dados originais do carrinho
+ * @returns {object} Carrinho processado com apenas 1 produto
+ */
+function enforceOneProductLimit(cartData) {
+  if (!cartData || !cartData.items || !Array.isArray(cartData.items)) {
+    console.warn('[IFRAME] ⚠️ Dados do carrinho inválidos recebidos');
+    return cartData;
+  }
+  
+  const originalItemCount = cartData.items.length;
+  
+  if (originalItemCount === 0) {
+    console.log('[IFRAME] 📭 Carrinho vazio recebido');
+    return cartData;
+  }
+  
+  if (originalItemCount === 1) {
+    console.log('[IFRAME] ✅ Carrinho já possui apenas 1 produto');
+    return cartData;
+  }
+  
+  // 🎯 LIMITE RÍGIDO: Aceita apenas o último produto (mais recente)
+  const lastProduct = cartData.items[cartData.items.length - 1];
+  
+  console.log(`[IFRAME] 🛑 BLOQUEADO: Carrinho tinha ${originalItemCount} produtos`);
+  console.log(`[IFRAME] 🎯 PERMITIDO: Apenas o último produto será processado`);
+  console.log(`[IFRAME] 📦 Produto aceito:`, lastProduct.title);
+  
+  // Recria o carrinho com apenas 1 produto
+  const processedCart = {
+    ...cartData,
+    items: [lastProduct],
+    // Recalcula o total para refletir apenas 1 produto
+    total_price: lastProduct.price * (lastProduct.quantity || 1)
+  };
+  
+  console.log(`[IFRAME] 💰 Total recalculado: ${processedCart.total_price} centavos`);
+  
+  return processedCart;
 }
 
 /**
